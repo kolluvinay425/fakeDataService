@@ -19,7 +19,7 @@ async function generateFakeCourses() {
         price: faker.datatype.number({ min: 10, max: 100 }),
         currency: "USD",
         description: faker.lorem.paragraph(),
-        thumbnail: faker.image.imageUrl(),
+        thumbnail: generateRandomImageURL(),
         presentation: faker.lorem.paragraphs(2),
         objectives: [faker.lorem.sentence(), faker.lorem.sentence()],
         requirements: [faker.lorem.sentence(), faker.lorem.sentence()],
@@ -59,5 +59,8 @@ async function generateFakeCourses() {
   } catch (error) {
     console.error("Error creating fake courses:", error);
   }
+}
+function generateRandomImageURL() {
+  return faker.image.imageUrl();
 }
 export { generateFakeCourses };
