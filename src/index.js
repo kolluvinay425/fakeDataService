@@ -1,6 +1,9 @@
 import Course from "./models/courses/index.js";
 import Category from "./models/categories/index.js";
 import Directory from "./models/folders/index.js";
+import { saveObjectToGoogleBucket } from "./helpers/bucket/index.js";
+
+import { Configuration, OpenAIApi } from "openai";
 
 import mongoose from "mongoose";
 
@@ -37,131 +40,212 @@ async function generateFakeCourses() {
   for each course generate 10 fake questions
   for each question 3 answer generate fake answers
  */
-
   const mongoConnection = mongoose.connect(process.env.MONGO_URI);
-
-  const categories = [
-    "Web Development",
-    "Data Science",
-    "Digital Marketing",
-    "Graphic Design",
-    "Mobile App Development",
-    "Project Management",
-    "Photography",
-    "Business Administration",
-    "Language Learning",
-    "Music Production",
-  ];
-
-  const subcategories = {
-    "Web Development": ["Node.js", "CSS", "HTML"],
-    "Data Science": ["Machine Learning", "Data Analysis", "Big Data"],
-    "Digital Marketing": [
-      "Search Engine Optimization (SEO)",
-      "Social Media Marketing",
-      "Content Marketing",
-    ],
-    "Graphic Design": ["Logo Design", "Illustration", "Typography"],
-    "Mobile App Development": [
-      "iOS Development",
-      "Android Development",
-      "Cross-Platform Development",
-    ],
-    "Project Management": ["Agile Methodology", "Scrum", "Project Planning"],
-    Photography: [
-      "Portrait Photography",
-      "Landscape Photography",
-      "Product Photography",
-    ],
-    "Business Administration": [
-      "Marketing Strategy",
-      "Finance and Accounting",
-      "Operations Management",
-    ],
-    "Language Learning": ["English", "Spanish", "French"],
-    "Music Production": [
-      "Music Composition",
-      "Audio Engineering",
-      "Sound Design",
-    ],
-  };
-
-  // Accessing subcategories for a specific category
-  const webDevSubcategories = subcategories["Web Development"];
-  console.log("Subcategories of Web Development:", webDevSubcategories);
-
   mongoose.createConnection(process.env.MONGO_URI).asPromise();
+
   mongoConnection.then(async () => {
     console.log("Connected to MongoDB");
 
-    for (let category of categories) {
-      console.log(category);
-      let results = await getImage(category);
-      let categoryImageURL = results["hits"][0]["webformatURL"];
-      for (let subcategory of subcategories[category]) {
-        let results = await getImage(subcategory);
-        let subImageURL;
-        if (results["totalHits"] > 0) {
-          subImageURL = results["hits"][0]["webformatURL"];
-        } else {
-          subImageURL = categoryImageURL;
-        }
+    const configuration = new Configuration({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+    const openai = new OpenAIApi(configuration);
+
+    var chat_completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        {
+          role: "user",
+          content:
+            "example of json array of string with ten elements containing fake course categories",
+        },
+      ],
+    });
+    const categorieArray = JSON.parse(
+      chat_completion.data.choices[0].message.content
+    );
+    console.log(categorieArray);
+
+    for (let category of categorieArray) {
+      let prompt =
+        `The photo showcases for the comcepts of ${category}`.toLowerCase();
+
+      console.log(prompt);
+
+      let responseImage = await openai.createImage({
+        prompt: prompt,
+        size: "256x256",
+        response_format: "b64_json",
+      });
+
+      let file = {
+        originalname: `${category.replaceAll(" ", "_")}.png`,
+        buffer: Buffer(responseImage.data.data[0].b64_json, "base64"),
+      };
+
+      let photo = await saveObjectToGoogleBucket(
+        file,
+        process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+      );
+
+      console.log(photo);
+
+      const newCategory = await Category.create({
+        name: category,
+        language: "en",
+        photo: photo,
+        status: "active",
+      });
+
+      let questionToChat = `example of json array of string with ten elements containing fake course subcategories from the main category ${category}`;
+      console.log(questionToChat);
+      chat_completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "user",
+            content: questionToChat,
+          },
+        ],
+      });
+
+      let subCategorieArray = JSON.parse(
+        chat_completion.data.choices[0].message.content
+      );
+
+      console.log(subCategorieArray);
+
+      for (let subcategory of subCategorieArray) {
+        let prompt =
+          `The photo showcases for the comcepts of ${subcategory}`.toLowerCase();
+
+        console.log(prompt);
+
+        let responseImage = await openai.createImage({
+          prompt: prompt,
+          size: "256x256",
+          response_format: "b64_json",
+        });
+
+        let file = {
+          originalname: `${subcategory.replaceAll(" ", "_")}.png`,
+          buffer: Buffer(responseImage.data.data[0].b64_json, "base64"),
+        };
+
+        let photo = await saveObjectToGoogleBucket(
+          file,
+          process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+        );
+
+        console.log(photo);
+
+        const newSubcategory = await Category.create({
+          name: subcategory,
+          language: "en",
+          photo: photo,
+          categoryFatherId: newCategory._id,
+          status: "active",
+        });
+
+        let questionToChat = `create an course title for the subcategory ${subcategory}`;
+
+        console.log(questionToChat);
+
+        chat_completion = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: questionToChat,
+            },
+          ],
+        });
+        let title = chat_completion.data.choices[0].message.content.replaceAll(
+          '"',
+          ""
+        );
+
+        questionToChat = `return 2  the most significant keywords separated by coma ${chat_completion.data.choices[0].message.content} ignoring Master and Mastering`;
+
+        let chat_keywords = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: questionToChat,
+            },
+          ],
+        });
+
+        let keywords = chat_keywords.data.choices[0].message.content.split(",");
+
+        prompt =
+          `The photo showcases for the comcepts of ${category} and ${subcategory} and ${keywords[0]}`.toLowerCase();
+
+        console.log(prompt);
+
+        responseImage = await openai.createImage({
+          prompt: prompt,
+          size: "256x256",
+          response_format: "b64_json",
+        });
+
+        file = {
+          originalname: `${title.replaceAll(" ", "_")}.png`,
+          buffer: Buffer(responseImage.data.data[0].b64_json, "base64"),
+        };
+
+        photo = await saveObjectToGoogleBucket(
+          file,
+          process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+        );
+
+        console.log(photo);
+
+        questionToChat = `create an course description maximum 500 caracters for course with title  ${chat_completion.data.choices[0].message.content}`;
+        console.log(questionToChat);
+        chat_completion = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: questionToChat,
+            },
+          ],
+        });
+        let extendedDescription =
+          chat_completion.data.choices[0].message.content;
+
+        questionToChat = `create an course description maximum 67 caracters for course with title  ${chat_completion.data.choices[0].message.content}`;
+        console.log(questionToChat);
+        chat_completion = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content: questionToChat,
+            },
+          ],
+        });
+
+        let description = chat_completion.data.choices[0].message.content;
+
+        const courseSchema = await Course.create({
+          title: title,
+          price: 10.35,
+          currency: "USD",
+          description: description,
+          thumbnail: photo,
+          categories: newCategory._id,
+          subcategories: newSubcategory._id,
+          extendedDescription: extendedDescription,
+          numberOfLikes: Math.floor(Math.random() * (20 - 2)) + 8,
+          numberOfVisits: Math.floor(Math.random() * (200 - 10)) + 8,
+          numberOfPurchases: Math.floor(Math.random() * (20 - 8)) + 8,
+        });
       }
     }
   });
-
-  /* try {
-    for (let i = 0; i < 50; i++) {
-      const course = new Course({
-        title: faker.lorem.words(3),
-        languages: [], // Add language IDs here if necessary
-        price: faker.datatype.number({ min: 10, max: 100 }),
-        currency: "USD",
-        description: faker.lorem.paragraph(),
-        thumbnail: generateRandomImageURL(),
-        presentation: faker.lorem.paragraphs(2),
-        objectives: [faker.lorem.sentence(), faker.lorem.sentence()],
-        requirements: [faker.lorem.sentence(), faker.lorem.sentence()],
-        chapters: [], // Add chapter IDs here if necessary
-        categories: [], // Add category IDs here if necessary
-        subcategories: [], // Add subcategory IDs here if necessary
-        extendedDescription: faker.lorem.paragraphs(3),
-        userId: "648b02f240d3ccd568cdec1c",
-        status: "published",
-        durationTime: `${faker.datatype.number({ min: 1, max: 10 })}h`,
-        numberOfLikes: faker.datatype.number({ min: 0, max: 1000 }),
-        numberOfVisits: faker.datatype.number({ min: 0, max: 10000 }),
-        questionAndAnswers: {
-          totalQuestions: faker.datatype.number({ min: 0, max: 100 }),
-          teacherAnswers: faker.datatype.number({ min: 0, max: 100 }),
-          totalQuestionSolved: faker.datatype.number({ min: 0, max: 100 }),
-        },
-      });
-
-      const folder = await Directory.findOne({
-        userId: course.userId,
-      });
-      const fakeDirectory = new Directory({
-        name: course.title,
-        type: "course",
-        language: "en",
-        userId: course.userId,
-        course: course._id,
-        folderFatherId: folder._id,
-      });
-
-      await course.save();
-      await fakeDirectory.save();
-    }
-
-    console.log("Fake courses created successfully!");
-  } catch (error) {
-    console.error("Error creating fake courses:", error);
-  }
-}*/
-}
-function generateRandomImageURL() {
-  return faker.image.imageUrl();
 }
 
 generateFakeCourses();
