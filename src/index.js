@@ -20,6 +20,140 @@ const randomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
+async function generateFakeData() {
+  const configuration = new Configuration({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
+  const openai = new OpenAIApi(configuration);
+
+  var chat_completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo-16k",
+    messages: [
+      {
+        role: "user",
+        content: `create 10 categories of courses Return them in JSON like this {categories:["category1","category2","category3"]`,
+      },
+    ],
+  });
+
+  console.log(chat_completion.data.choices[0].message.content);
+
+  const categoriesObject = JSON.parse(
+    chat_completion.data.choices[0].message.content
+  );
+
+  let GeneratedObjects = {
+    categories: [],
+  };
+
+  for (let category of categoriesObject.categories) {
+    let categoryObject = {
+      name: category,
+      subcategories: [],
+    };
+    try {
+      var chat_completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo-16k",
+        messages: [
+          {
+            role: "user",
+            content: `create 30 course subcategories of the course ${category}  Return them in JSON like this {subcategories:["subacategory1","subcategory2","subcategory3"]}`,
+          },
+        ],
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log(chat_completion.data.choices[0].message.content);
+
+    const subCategoriesObject = JSON.parse(
+      chat_completion.data.choices[0].message.content
+    );
+
+    for (let subcategory of subCategoriesObject.subcategories) {
+      var subCategoryObject = {
+        name: subcategory,
+        courses: [],
+      };
+
+      try {
+        var chat_completion = await openai.createChatCompletion({
+          model: "gpt-3.5-turbo-16k",
+          messages: [
+            {
+              role: "user",
+              content: `create 7 distict course title for the topic ${subcategory}  Return them in JSON like this {titles:["title1","title2","title3"]}`,
+            },
+          ],
+        });
+      } catch (error) {
+        console.log(error);
+      }
+
+      console.log(chat_completion.data.choices[0].message.content);
+
+      const titlesObjects = JSON.parse(
+        chat_completion.data.choices[0].message.content
+      );
+
+      for (let title of titlesObjects.titles) {
+        console.log(`Generating long description for the ${title}`);
+        try {
+          var chat_completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo-16k",
+            messages: [
+              {
+                role: "user",
+                content: `create course description with 500 caracters for the ${title}`,
+              },
+            ],
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        let longDescription = chat_completion.data.choices[0].message.content;
+
+        console.log(`Generating short description for the ${title}`);
+        try {
+          var chat_completion = await openai.createChatCompletion({
+            model: "gpt-3.5-turbo-16k",
+            messages: [
+              {
+                role: "user",
+                content: `create course description with 50 caracters for the ${title}`,
+              },
+            ],
+          });
+        } catch (error) {
+          console.log(error);
+        }
+
+        let description = chat_completion.data.choices[0].message.content;
+
+        let titleObject = {
+          title: title,
+          longDescription: longDescription,
+          description: description,
+        };
+
+        subCategoryObject.courses.push(titleObject);
+      }
+      categoryObject.subcategories.push(subCategoriesObject);
+    }
+    GeneratedObjects.categories.push(categoryObject);
+
+    const jsonData = JSON.stringify(GeneratedObjects, null, 2);
+
+    // Specify the file path where you want to write the JSON data
+    const filePath = `data.json`;
+
+    // Write the JSON data to the file
+    fs.writeFileSync(filePath, jsonData);
+  }
+}
+
 async function generateFakeCourses() {
   const users = [
     "648b02f240d3ccd568cdec1c",
@@ -49,7 +183,7 @@ async function generateFakeCourses() {
   mongoConnection.then(async () => {
     console.log("Connected to MongoDB");
 
-    await mongoose.connection.dropDatabase();
+    // await mongoose.connection.dropDatabase();
 
     const configuration = new Configuration({
       apiKey: process.env.OPENAI_API_KEY,
@@ -62,7 +196,7 @@ async function generateFakeCourses() {
         {
           role: "user",
           content:
-            "JSON array of string with ten elements containing course categories in format []",
+            "create 10 categories of courses for a online platform and put it in a JSON structure with a node categories",
         },
       ],
     });
@@ -97,13 +231,16 @@ async function generateFakeCourses() {
             process.env.GOOGLE_CATEGORIES_BUCKET_NAME
           );
         }
+        let newCategory = await Category.findOne({ name: category });
 
-        const newCategory = await Category.create({
-          name: category,
-          language: "en",
-          image: imageCategory,
-          status: "active",
-        });
+        if (!newCategory) {
+          const newCategory = await Category.create({
+            name: category,
+            language: "en",
+            image: imageCategory,
+            status: "active",
+          });
+        }
 
         let questionToChat = `JSON array of string with five elements containing fake course subcategories from the main category ${category} in format []`;
         console.log(questionToChat);
@@ -326,6 +463,6 @@ async function generateFakeCourses() {
   });
 }
 
-generateFakeCourses();
+generateFakeData();
 
 export { generateFakeCourses };
