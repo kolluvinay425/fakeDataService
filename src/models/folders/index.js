@@ -11,7 +11,7 @@ const directorySchema = Schema({
   },
   type: { type: String, enum: ["folder", "course"], required: true },
   language: { type: String, required: true },
-  folderFatherId: { type: Schema.Types.ObjectId, ref: "Directory" },
+  upperFolderId: { type: Schema.Types.ObjectId, ref: "Directory" },
   userId: { type: String, required: true },
   course: { type: Schema.Types.ObjectId, ref: "Course" },
 });
@@ -22,7 +22,7 @@ directorySchema.methods.toJSON = function () {
     name: this.name,
     type: this.type,
     language: this.language,
-    folderFatherId: this.folderFatherId,
+    upperFolderId: this.upperFolderId,
     course: this.course,
   };
 };

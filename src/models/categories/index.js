@@ -7,7 +7,7 @@ const categorySchema = mongoose.Schema({
     required: true,
     default: "en",
   },
-  photo: {
+  image: {
     type: String,
     required: true,
   },
@@ -25,7 +25,7 @@ categorySchema.methods.toJSON = function () {
   return {
     id: this._id,
     name: this.name,
-    photo: this.photo,
+    image: this.image,
     categoryFatherId: this.categoryFatherId,
     language: this.language,
   };

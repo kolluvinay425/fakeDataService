@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
 
-
 const videoSchema = mongoose.Schema({
-  url: String , 
+  url: String,
   duration: { type: Number },
   durationTime: String,
-})
-
+});
 
 const lessonSchema = mongoose.Schema(
   {
     title: { type: String, required: true },
-   video: videoSchema,
-    cover: { type: String, required: false },
+    video: videoSchema,
+    thumbnail: { type: String, required: false },
     attachments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Attachment" }],
     questionAndAnswers: {
       totalQuestions: {
@@ -35,14 +33,12 @@ const lessonSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-
-
 lessonSchema.methods.toJSON = function () {
   return {
     id: this._id,
     title: this.title.trim(),
     video: this.video,
-    cover: this.cover,
+    thumbnail: this.thumbnail,
     duration: this.duration,
     durationTime: this.durationTime,
     attachments: this.attachments,

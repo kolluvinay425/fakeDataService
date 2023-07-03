@@ -7,9 +7,11 @@ const credentials = join(
 );
 // const bucketName = process.env.GOOGLE_BUCKET_NAME;
 
+
+
 const gcStorage = new Storage();
 
-export const saveObjectToGoogleBucket = (objectFile, bucketName) => {
+export const saveObjectToGoogleBucket = (objectFile ,bucketName) => {
   return new Promise((resolve, reject) => {
     const bucket = gcStorage.bucket(bucketName);
     const { originalname, buffer } = objectFile;
@@ -29,7 +31,7 @@ export const saveObjectToGoogleBucket = (objectFile, bucketName) => {
       await blob.makePublic();
       resolve(url);
     });
-    console.log(buffer);
     blobStream.end(buffer);
   });
 };
+

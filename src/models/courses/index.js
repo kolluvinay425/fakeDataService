@@ -8,7 +8,8 @@ const courseSchema = mongoose.Schema(
     currency: String,
     description: String,
     thumbnail: String,
-    presentation: String,
+    trailer: String,
+    frame: String,
     objectives: [{ type: String }],
     requirements: [{ type: String }],
     chapters: [{ type: mongoose.Schema.Types.ObjectId, ref: "Chapter" }],
@@ -23,6 +24,8 @@ const courseSchema = mongoose.Schema(
     numberOfLikes: { type: Number, required: false, default: 0 },
     numberOfVisits: { type: Number, required: false, default: 0 },
     numberOfPurchases: { type: Number, required: false, default: 0 },
+    totalEarnings: { type: Number, required: false, default: 0 },
+    licensesSold: { type: Number, required: false, default: 0 },
     questionAndAnswers: {
       totalQuestions: {
         type: Number,
@@ -65,6 +68,8 @@ courseSchema.methods.toJSON = function () {
     status: this.status,
     numberOfLikes: this.numberOfLikes,
     numberOfVisits: this.numberOfVisits,
+    totalEarnings: this.totalEarnings,
+    licensesSold: this.licensesSold,
   };
 };
 

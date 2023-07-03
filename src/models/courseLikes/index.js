@@ -7,7 +7,7 @@ const courseLikes = Schema({
   surname: { type: String, required: true },
   profilePicture: { type: String, required: true },
   userId: { type: String, required: true },
-  course: { type: Schema.Types.ObjectId, ref: "Course" },
+  courseId: { type: Schema.Types.ObjectId, ref: "Course" },
 });
 
 courseLikes.methods.toJSON = function () {
