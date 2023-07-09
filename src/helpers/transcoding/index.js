@@ -63,8 +63,8 @@ const videoTranscoding = (inputUri, outputUri, trasformers) => {
 
   const request = {
     parent: transcoderServiceClient.locationPath(
-      process.env.GCE_PROJECT_ID,
-      process.env.GCE_AREA_NAME
+      process.env.GOOGLE_PROJECT_ID,
+      "europe-west-1"
     ),
     job: {
       inputUri: inputUri,
@@ -91,7 +91,7 @@ const videoToSpriteSheet = (inputUri, outputUri, id) => {
   const request = {
     parent: transcoderServiceClient.locationPath(
       process.env.GOOGLE_PROJECT_ID,
-      process.env.GOOGLE_PROJECT_AREA_NAME
+      "europe-west1"
     ),
     job: {
       inputUri: inputUri,

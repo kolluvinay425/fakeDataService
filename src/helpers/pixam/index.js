@@ -1,6 +1,8 @@
 import https from "https";
 import querystring from "querystring";
-import * as followRedirect from "follow-redirects";
+import pkg from "follow-redirects";
+
+const { https: followRedirectsHttps } = pkg;
 
 const pixabayUserKey = process.env.PIXABAY_USER_KEY;
 const pixabayUrl = "https://pixabay.com/api/";
@@ -11,7 +13,7 @@ const constructPictureQueryString = (query) => {
     q: query.split(" ").join("+").toLowerCase(),
     image_type: "all",
     orientation: "all",
-    per_page: 10,
+    per_page: 30,
   };
 
   return querystring.stringify(queryObject);
@@ -22,7 +24,7 @@ const constructVideoQueryString = (query) => {
     key: process.env.PIXABAY_USER_KEY,
     q: query.split(" ").join("+").toLowerCase(),
     video_type: "film",
-    per_page: 10,
+    per_page: 30,
   };
 
   return querystring.stringify(queryObject);
@@ -81,8 +83,9 @@ const getVideo = async (query) => {
 
 const getResorce = async (fileUrl) => {
   console.log("file  ", fileUrl);
+
   return new Promise((resolve, reject) => {
-    https
+    followRedirectsHttps
       .get(fileUrl, (response) => {
         if (response.statusCode !== 200) {
           console.error(`Error: ${response.statusCode}`);
