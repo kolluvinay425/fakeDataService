@@ -1,5 +1,6 @@
 import Course from "./models/courses/index.js";
 import Category from "./models/categories/index.js";
+import Directory from "./models/folders/index.js";
 import User from "./models/users/index.js";
 import { saveObjectToGoogleBucket } from "./helpers/bucket/index.js";
 import { Configuration, OpenAIApi } from "openai";
@@ -217,7 +218,7 @@ const getVideoAndPictures = async (data) => {
   for (let category of data.categories) {
     let categoryImage = await getImage(category.name);
 
-    category["image"] =
+    let image =
       categoryImage.totalHits > 0
         ? categoryImage.hits[
             randomNumber(
@@ -226,12 +227,28 @@ const getVideoAndPictures = async (data) => {
             )
           ].largeImageURL
         : "";
+    category["image"] =
+      "https://storage.googleapis.com/testing_uploads/generic_picture.png";
+    if (image) {
+      const parsedUrl = new URL(image);
+      const pathParts = parsedUrl.pathname.split("/");
+      const lastPart = pathParts[pathParts.length - 1];
+      let file = {
+        originalname: lastPart,
+        buffer: await getResorce(image),
+      };
+
+      category["image"] = await saveObjectToGoogleBucket(
+        file,
+        process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+      );
+    }
 
     for (let subcategory of category.subcategories) {
       let subCategoryImage = await getImage(subcategory.name);
       let subCategoryVideo = await getVideo(subcategory.name);
 
-      subcategory["image"] =
+      let image =
         subCategoryImage.totalHits > 0
           ? subCategoryImage.hits[
               randomNumber(
@@ -242,8 +259,24 @@ const getVideoAndPictures = async (data) => {
               )
             ].largeImageURL
           : "";
+      subcategory["image"] =
+        "https://storage.googleapis.com/testing_uploads/generic_picture.png";
+      if (image) {
+        const parsedUrl = new URL(image);
+        const pathParts = parsedUrl.pathname.split("/");
+        const lastPart = pathParts[pathParts.length - 1];
+        let file = {
+          originalname: lastPart,
+          buffer: await getResorce(image),
+        };
+
+        subcategory["image"] = await saveObjectToGoogleBucket(
+          file,
+          process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+        );
+      }
       for (let course of subcategory.courses) {
-        course["image"] = subcategory["image"] =
+        let image =
           subCategoryImage.totalHits > 0
             ? subCategoryImage.hits[
                 randomNumber(
@@ -254,7 +287,24 @@ const getVideoAndPictures = async (data) => {
                 )
               ].largeImageURL
             : "";
-        course["video"] =
+        course["image"] =
+          "https://storage.googleapis.com/testing_uploads/generic_picture.png";
+        if (image) {
+          const parsedUrl = new URL(image);
+          const pathParts = parsedUrl.pathname.split("/");
+          const lastPart = pathParts[pathParts.length - 1];
+          let file = {
+            originalname: lastPart,
+            buffer: await getResorce(image),
+          };
+
+          course["image"] = await saveObjectToGoogleBucket(
+            file,
+            process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+          );
+        }
+
+        let video =
           subCategoryVideo.totalHits > 0
             ? subCategoryVideo.hits[
                 randomNumber(
@@ -265,6 +315,37 @@ const getVideoAndPictures = async (data) => {
                 )
               ].videos.small.url
             : "";
+
+        course["video"] =
+          "https://storage.googleapis.com/testing_uploads/generic_video.mp4";
+        course["frame"] =
+          "https://storage.googleapis.com/course-frame/64a2724d6e735a6f0f4b227e_large-sprite-sheet0000000000.jpeg";
+        if (video) {
+          const parsedUrl = new URL(video);
+          const pathParts = parsedUrl.pathname.split("/");
+          const lastPart = pathParts[pathParts.length - 1];
+
+          let file = {
+            originalname: lastPart,
+            buffer: await getResorce(course.video),
+          };
+
+          course["video"] = await saveObjectToGoogleBucket(
+            file,
+            process.env.GOOGLE_CATEGORIES_BUCKET_NAME
+          );
+
+          sleep(5000);
+
+          /* videoToSpriteSheet(
+            course["video"].replace("https://storage.googleapis.com/", "gs://"),
+            "gs://course-frame/",
+            lastPart
+          );
+          course[
+            "frame"
+          ] = `https://storage.googleapis.com/course-frame/${lastPart}_large-sprite-sheet0000000000.jpeg`;*/
+        }
       }
     }
   }
@@ -282,76 +363,37 @@ const getVideoAndPictures = async (data) => {
 const saveDataVideoAndPictures = async (data) => {
   await Category.deleteMany({});
   await Course.deleteMany({});
+  await Directory.deleteMany({});
   const teachers = await User.find({ role: "teacher" });
   for (let category of data.categories) {
-    let categoryBucketImage =
-      "https://storage.googleapis.com/testing_uploads/generic_picture.png";
-
-    if (category.image) {
-      const parsedUrl = new URL(category.image);
-      const pathParts = parsedUrl.pathname.split("/");
-      const lastPart = pathParts[pathParts.length - 1];
-      let file = {
-        originalname: lastPart,
-        buffer: await getResorce(category.image),
-      };
-
-      categoryBucketImage = await saveObjectToGoogleBucket(
-        file,
-        process.env.GOOGLE_CATEGORIES_BUCKET_NAME
-      );
-    }
-
+    console.log(`Creating ${category.name}`);
     const newCategory = await Category.create({
       name: category.name,
       language: "en",
-      image: categoryBucketImage,
+      image: category.image,
       status: "active",
     });
 
     for (let subcategory of category.subcategories) {
-      let subCategoryBucketImage =
-        "https://storage.googleapis.com/testing_uploads/generic_picture.png";
-
-      if (subcategory.image) {
-        const parsedUrl = new URL(subcategory.image);
-        const pathParts = parsedUrl.pathname.split("/");
-        const lastPart = pathParts[pathParts.length - 1];
-
-        let file = {
-          originalname: lastPart,
-          buffer: await getResorce(subcategory.image),
-        };
-
-        subCategoryBucketImage = await saveObjectToGoogleBucket(
-          file,
-          process.env.GOOGLE_CATEGORIES_BUCKET_NAME
-        );
-      }
-
+      console.log(`Creating ${subcategory.name}`);
       const newSubCategory = await Category.create({
         name: subcategory.name,
         language: "en",
-        image: subCategoryBucketImage,
+        image: subcategory.image,
         status: "active",
         categoryFatherId: newCategory._id,
       });
 
       for (let course of subcategory.courses) {
-        let courseBucketImage =
-          "https://storage.googleapis.com/testing_uploads/generic_picture.png";
-        let courseBucketVideo =
-          "https://storage.googleapis.com/testing_uploads/generic_video.mp4";
-        let courseBucketFrame =
-          "https://storage.googleapis.com/course-frame/64a2724d6e735a6f0f4b227e_large-sprite-sheet0000000000.jpeg";
-
+        console.log(`Creating ${course.title}`);
         let teacher = teachers[randomNumber(0, teachers.length - 1)];
         const newCourse = await Course.create({
           title: course.title,
           languages: ["64a2709642a325cc3a2942a1"],
           price: randomNumber(100, 200),
+          duration: randomNumber(60, 6000),
           currency: "USD",
-          extendedDescription: course.longDescriptio
+          extendedDescription: course.longDescription
             ? course.longDescription
             : "some decription because AI failed even more ",
           description: course.description
@@ -363,58 +405,44 @@ const saveDataVideoAndPictures = async (data) => {
           status: "published",
           categories: [newCategory._id],
           subcategories: [newSubCategory._id],
-          duration: randomNumber(1, 50),
+
           numberOfLikes: randomNumber(100, 200),
           numberOfVisits: randomNumber(500, 1000),
           numberOfPurchases: randomNumber(10, 100),
+          raanking: randomNumber(0, 5),
+          customerPictures: [
+            "https://cdn.pixabay.com/photo/2019/12/16/14/46/black-man-4699505_1280.jpg",
+            "https://cdn.pixabay.com/photo/2017/03/21/01/17/asian-2160794_1280.jpg",
+            "https://cdn.pixabay.com/photo/2018/08/18/16/23/indian-man-3615047_1280.jpg",
+            "https://cdn.pixabay.com/photo/2019/06/30/07/34/lgbt-4307493_1280.jpg",
+            "https://cdn.pixabay.com/photo/2022/01/07/01/21/girl-6920626_1280.jpg",
+          ],
+          trailer: course.video,
+          frame: course.frame,
+          thumbnail: course.image,
         });
 
-        if (course.image) {
-          const parsedUrl = new URL(course.image);
-          const pathParts = parsedUrl.pathname.split("/");
-          const lastPart = pathParts[pathParts.length - 1];
+        let directory = await Directory.findOne({ userId: teacher._id });
 
-          let file = {
-            originalname: lastPart,
-            buffer: await getResorce(course.image),
-          };
-
-          courseBucketImage = await saveObjectToGoogleBucket(
-            file,
-            process.env.GOOGLE_CATEGORIES_BUCKET_NAME
-          );
+        if (!directory) {
+          directory = await Directory.create({
+            name: "root",
+            type: "folder",
+            language: "en",
+            userId: teacher._id,
+          });
         }
 
-        if (course.video) {
-          const parsedUrl = new URL(course.video);
-          const pathParts = parsedUrl.pathname.split("/");
-          const lastPart = pathParts[pathParts.length - 1];
+        await Directory.create({
+          name: newCourse.title,
+          type: "course",
+          language: "en",
+          userId: teacher._id,
+          upperFolderId: directory._id,
+          course: newCourse._id,
+        });
 
-          let file = {
-            originalname: lastPart,
-            buffer: await getResorce(course.video),
-          };
-
-          courseBucketVideo = await saveObjectToGoogleBucket(
-            file,
-            process.env.GOOGLE_CATEGORIES_BUCKET_NAME
-          );
-
-          videoToSpriteSheet(
-            courseBucketVideo.replace(
-              "https://storage.googleapis.com/",
-              "gs://"
-            ),
-            "gs://course-frame/",
-            newCourse._id
-          );
-          courseBucketFrame = `https://storage.googleapis.com/course-frame/${newCourse._id}_large-sprite-sheet0000000000.jpeg`;
-        }
-
-        newCourse.trailer = courseBucketVideo;
-        newCourse.frame = courseBucketFrame;
-        newCourse.thumbnail = courseBucketImage;
-        await newCourse.save();
+        //await newCourse.save();
       }
     }
   }
