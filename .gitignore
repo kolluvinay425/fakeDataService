@@ -129,4 +129,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 /google_key/
-FileToIgnore.txt
