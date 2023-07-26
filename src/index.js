@@ -1,7 +1,11 @@
 import Course from "./models/courses/index.js";
 import Category from "./models/categories/index.js";
 import Directory from "./models/folders/index.js";
+import QuestionAnswer from "./models/questionAnswer/index.js";
 import User from "./models/users/index.js";
+import Chapter from "./models/chapters/index.js";
+import Lesson from "./models/lessons/index.js";
+import Review from "./models/review/index.js";
 import { saveObjectToGoogleBucket } from "./helpers/bucket/index.js";
 import { Configuration, OpenAIApi } from "openai";
 import mongoose from "mongoose";
@@ -11,6 +15,7 @@ import { videoToSpriteSheet } from "./helpers/transcoding/index.js";
 import url from "url";
 
 import fs from "fs";
+import { strictEqual } from "assert";
 
 dotenv.config();
 
@@ -364,7 +369,9 @@ const saveDataVideoAndPictures = async (data) => {
   await Category.deleteMany({});
   await Course.deleteMany({});
   await Directory.deleteMany({});
+
   const teachers = await User.find({ role: "teacher" });
+  const students = await User.find({ role: "student" });
   for (let category of data.categories) {
     console.log(`Creating ${category.name}`);
     const newCategory = await Category.create({
@@ -422,6 +429,8 @@ const saveDataVideoAndPictures = async (data) => {
           thumbnail: course.image,
         });
 
+        course["id"] = newCourse._id;
+
         let directory = await Directory.findOne({ userId: teacher._id });
 
         if (!directory) {
@@ -441,8 +450,199 @@ const saveDataVideoAndPictures = async (data) => {
           upperFolderId: directory._id,
           course: newCourse._id,
         });
+      }
+    }
+  }
 
-        //await newCourse.save();
+  const jsonData = JSON.stringify(data, null, 2);
+
+  // Specify the file path where you want to write the JSON data
+  const filePath = `data_and_images_and_id.json`;
+
+  // Write the JSON data to the file
+  fs.writeFileSync(filePath, jsonData);
+  return data;
+};
+
+const updateCourse = async (data) => {
+  await QuestionAnswer.deleteMany({});
+  await Chapter.deleteMany({});
+  await Lesson.deleteMany({});
+  await Review.deleteMany({});
+  const teachers = await User.find({ role: "teacher" });
+  const students = await User.find({ role: "student" });
+  let coursesUpdated = 0;
+  for (let category of data.categories) {
+    for (let subcategory of category.subcategories) {
+      for (let course of subcategory.courses) {
+        coursesUpdated++;
+        console.log(`Course Updated number ${coursesUpdated}`);
+        let courseDB = await Course.findById(course.id);
+
+        console.log(`creating chapter for courseId ${courseDB._id}`);
+        const createdChapter = await Chapter.create({
+          title: "Introduction",
+          public: true,
+        });
+
+        for (let i = 0; i < 5; i++) {
+          console.log(`creating lessons for counse ${courseDB._id}`);
+          let createdLesson = await Lesson.create({
+            title: `Lesson number ${i}`,
+            thumbnail:
+              "https://storage.googleapis.com/testing_uploads/generic_picture.png",
+            video: {
+              url: "https://storage.googleapis.com/testing_uploads/generic_video.mp4",
+              duraration: randomNumber(10, 60),
+            },
+          });
+          createdChapter.lessons.push(createdLesson.id);
+        }
+
+        createdChapter.save();
+
+        courseDB.chapters.push(createdChapter.id);
+        await courseDB.save();
+
+        const reviews = [];
+
+        /*
+
+{
+  user: {
+    id: { type: String, required: true },
+
+    profilePicture: { type: String, required: true },
+
+    name: { type: String, required: true },
+
+    numberOfReviews: { type: Number, required: true, default: 0 },
+  },
+
+  title: { type: String, required: true },
+
+  stars: { type: Number, required: true, min: 1, max: 5 },
+
+  reviewText: { type: String, required: true },
+
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course",
+    required: true,
+  },
+
+  userId: {
+    type: String,
+    required: true,
+  },
+
+  answer: String,
+})
+
+       */
+        for (let i = 0; i < randomNumber(5, 10); i++) {
+          console.log(`Writing review for ${course.id}`);
+          let user = students[randomNumber(0, students.length - 1)];
+          let reviewUser = {
+            id: user._id,
+            profilePicture: user.profilePicture,
+            name: user.name,
+            numberOfReviews: randomNumber(1, 12),
+          };
+
+          let evaluation = randomNumber(1, 5);
+          let review = {
+            user: reviewUser,
+            title: course.title,
+            reviewText: `${course.title}  is a course of ${evaluation} starts`,
+            stars: evaluation,
+            userId: user._id,
+            course: course.id,
+          };
+
+          await Review.create(review);
+        }
+
+        let counterQa = 0;
+        for (let i = 0; i < randomNumber(0, 7); i++) {
+          for (let qa of course.qa) {
+            try {
+              console.log(`Updating ${course.id}`);
+
+              let student = students[randomNumber(0, students.length - 1)];
+
+              let teacher = await User.findById(courseDB.userId);
+              console.log(`Creating question  for course ${course.id}`);
+
+              let newQuestion = await QuestionAnswer.create({
+                title: qa.question ? qa.question : "Ai does not work",
+                body: qa.question ? qa.question : "Ai does not work",
+                type: "question",
+                resource: "course",
+                solved: counterQa == 0 ? true : false,
+                user: {
+                  id: student._id,
+                  imageUrl: student.profilePicture,
+                  firstName: student.name,
+                  lastName: student.surname,
+                  username: `@${student.name}_@${student.surname}`,
+                },
+                course: course.id,
+              });
+
+              if (qa.answers) {
+                let counterAnswers = 0;
+
+                for (let i = 0; i < randomNumber(1, 5); i++) {
+                  for (let answer of qa.answers) {
+                    console.log(`Creating answer for course ${course.id}`);
+                    const newAnswer = await QuestionAnswer.create({
+                      title: answer ? answer : "AI does not work ",
+                      body: answer ? answer : "AI does not work ",
+                      type: "answer",
+                      user: {
+                        id: teacher._id,
+                        imageUrl: teacher.profilePicture,
+                        firstName: teacher.name,
+                        lastName: teacher.surname,
+                        username: `@${teacher.name}_@${teacher.surname}`,
+                      },
+                      solved: Boolean(randomNumber(0, 1)),
+                      father: newQuestion._id,
+                    });
+                    for (let j = 0; j < randomNumber(1, 5); j++) {
+                      console.log(`Creating answer for answer ${newAnswer.id}`);
+                      const dataUser =
+                        students[randomNumber(0, students.length - 1)];
+                      await QuestionAnswer.create({
+                        title: answer ? `${answer}  ${j}` : "AI does not work ",
+                        body: answer ? `${answer}  ${j}` : "AI does not work ",
+                        type: "answer",
+                        user: {
+                          id: dataUser._id,
+                          imageUrl: dataUser.profilePicture,
+                          firstName: dataUser.name,
+                          lastName: dataUser.surname,
+                          username: `@${dataUser.name}_@${dataUser.surname}`,
+                        },
+                        solved: Boolean(randomNumber(0, 1)),
+                        father: newAnswer._id,
+                      });
+                      counterAnswers++;
+                    }
+                    counterAnswers++;
+                  }
+                }
+
+                newQuestion.numberOfAnswers = counterAnswers;
+                newQuestion.save();
+              }
+              counterQa++;
+            } catch (error) {
+              console.log("error in uploading ", error);
+            }
+          }
+        }
       }
     }
   }
@@ -475,8 +675,16 @@ async function generateFakeCourses() {
     if (!fs.existsSync("data_and_images.json")) {
       await getVideoAndPictures(data);
     }
-    data = JSON.parse(fs.readFileSync("data_and_images.json", "utf-8"));
+    data = JSON.parse(fs.readFileSync("data_and_images_and_id.json", "utf-8"));
+
+    //if (fs.existsSync("data_and_images_and_id.json")) {
     await saveDataVideoAndPictures(data);
+    //}
+
+    data = JSON.parse(fs.readFileSync("data_and_images_and_id.json"));
+
+    await updateCourse(data);
+
     exit(0);
   });
 }
