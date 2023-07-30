@@ -49,10 +49,62 @@ async function correctQuestions() {
 
   mongoConnection.then(async () => {
     console.log("Connected to MongoDB");
-    let answers = await QuestionAnswer.updateMany(
+
+    let users = await User.find({ role: "teacher" });
+
+    for (const user of users) {
+      console.log(
+        `Updating picture in course for ${user.name} ${user.surname} ${user._id} ${user.profilePicture}`
+      );
+
+      let numberOfCoursesForTeacher = await Course.count({ userId: user._id });
+
+      console.log(`number of courses ${numberOfCoursesForTeacher}`);
+
+      await Course.updateMany(
+        { userId: user._id },
+        { teacherPicture: user.profilePicture }
+      );
+    }
+
+    /*await QuestionAnswer.updateMany(
       { type: "answer" },
       { $unset: { title: "" } }
-    );
+    );*/
+
+    let answers = await QuestionAnswer.find({ type: "answer" });
+    let counterAnswers = 0;
+    for (let answer of answers) {
+      /*Search for question */
+
+      let father = await QuestionAnswer.findOne({
+        _id: new mongoose.Types.ObjectId(answer.father),
+      });
+
+      if (father.type === "question") {
+        let course = await Course.findById(father.course);
+        if (answer.user.id == course.userId) {
+          answer.user["owner"] = true;
+        } else {
+          answer.user["owner"] = false;
+        }
+      }
+
+      answer["answeredTo"] = father.user;
+
+      let numberOfAnswers = await QuestionAnswer.count({
+        type: "answer",
+        father: answer._id,
+      });
+
+      answer["numberOfAnswers"] = numberOfAnswers;
+      answer["numberOfLikes"] = randomNumber(0, 100);
+      await answer.save();
+      counterAnswers++;
+
+      console.log(`answer remaning: ${answers.length - counterAnswers}`);
+    }
+
     let questions = await QuestionAnswer.find({ type: "question" });
     console.log(questions[0]);
     let counterQuestion = 0;

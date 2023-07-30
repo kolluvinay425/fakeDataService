@@ -74,16 +74,7 @@ courseSchema.methods.toJSON = function () {
     totalEarnings: this.totalEarnings,
     licensesSold: this.licensesSold,
     ranking: this.ranking,
-    customerPictures:
-      this.customerPictures.length() == 5
-        ? this.customerPictures
-        : [
-            "https://cdn.pixabay.com/photo/2019/12/16/14/46/black-man-4699505_1280.jpg",
-            "https://cdn.pixabay.com/photo/2017/03/21/01/17/asian-2160794_1280.jpg",
-            "https://cdn.pixabay.com/photo/2018/08/18/16/23/indian-man-3615047_1280.jpg",
-            "https://cdn.pixabay.com/photo/2019/06/30/07/34/lgbt-4307493_1280.jpg",
-            "https://cdn.pixabay.com/photo/2022/01/07/01/21/girl-6920626_1280.jpg",
-          ],
+    customerPictures: this.customerPictures,
   };
 };
 

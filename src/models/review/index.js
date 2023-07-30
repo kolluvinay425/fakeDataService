@@ -1,35 +1,47 @@
 import mongoose from "mongoose";
 
-const reviewSchema = new mongoose.Schema({
-  user: {
-    id: { type: String, required: true },
-
-    profilePicture: { type: String, required: true },
-
-    name: { type: String, required: true },
-
-    numberOfReviews: { type: Number, required: true, default: 0 },
-  },
-
-  title: { type: String, required: true },
-
-  stars: { type: Number, required: true, min: 1, max: 5 },
-
-  reviewText: { type: String, required: true },
-
-  course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Course",
-    required: true,
-  },
-
-  userId: {
-    type: String,
-    required: true,
-  },
-
-  answer: String,
+const teacherSchema = new mongoose.Schema({
+  userId: { type: String, required: true },
+  name: { type: String, required: true },
+  text: { type: String, required: true },
+  profilePicture: { type: String, required: true },
 });
+
+const reviewSchema = new mongoose.Schema(
+  {
+    user: {
+      id: { type: String, required: true },
+
+      profilePicture: { type: String, required: true },
+
+      name: { type: String, required: true },
+
+      surname: { type: String },
+
+      numberOfReviews: { type: Number, required: true, default: 0 },
+    },
+
+    title: { type: String, required: true },
+
+    stars: { type: Number, required: true, min: 1, max: 5 },
+
+    reviewText: { type: String, required: true },
+
+    course: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+      required: true,
+    },
+
+    userId: {
+      type: String,
+      required: true,
+    },
+    answered: { type: Boolean, default: false },
+    teacherAnswer: { type: teacherSchema, required: false },
+  },
+  { timestamps: true }
+);
 reviewSchema.methods.toJSON = function () {
   return {
     id: this._id,
@@ -42,8 +54,16 @@ reviewSchema.methods.toJSON = function () {
     title: this.title,
     reviewText: this.reviewText,
     stars: this.stars,
-    answer: this.answer,
     courseId: this.course,
+    answered: this.answered,
+    teacherAnswer: {
+      userId: this.teacherAnswer.userId,
+      name: this.teacherAnswer.name,
+      text: this.teacherAnswer.text,
+      profilePicture: this.teacherAnswer.profilePicture,
+    },
+    createdAt: this.createdAt,
+    updatedAt: this.updatedAt,
   };
 };
 const Review = mongoose.model("Review", reviewSchema);
