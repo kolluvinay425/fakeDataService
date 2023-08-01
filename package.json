@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "exec": "node ./src/index.js"
+    "exec": "node ./src/createReviews.js"
   },
   "keywords": [],
   "author": "",
