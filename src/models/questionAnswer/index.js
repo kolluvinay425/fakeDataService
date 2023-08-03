@@ -47,6 +47,11 @@ const questionAnswerSchema = Schema(
         this.type === "answer" ? false : null;
       },
     },
+
+    questionId: {
+      type: Schema.Types.ObjectId,
+      ref: "QuestionAnswer",
+    },
     solvedDate: {
       type: Date,
       required: [false, "Please add solvedInDate value (string)"],

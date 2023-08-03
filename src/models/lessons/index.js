@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const videoSchema = mongoose.Schema({
+  public: { type: "boolean", default: true },
   url: String,
   duration: { type: Number },
   durationTime: String,
