@@ -69,7 +69,7 @@ const createAiReview = async (startingIndex, elementsInProcess) => {
     existingData = JSON.parse(existingDataContent);
   }
 
-  const jsonData = JSON.stringify([...existingData, ...rAndO], null, 2);
+  const jsonData = JSON.stringify([...existingData, ...reviews], null, 2);
   const filePath = `course_reviews.json`;
   fs.writeFileSync(filePath, jsonData, "utf8");
 };
