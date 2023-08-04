@@ -1,0 +1,167 @@
+[
+  {
+    "reviews": [
+      {
+        "text": "This course was excellent! It provided a comprehensive introduction to web development.",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your feedback! We're glad you found the course helpful."
+      },
+      {
+        "text": "The course content was informative, but the pace was too fast for beginners.",
+        "evaluation": 3,
+        "teacherAnswer": "We appreciate your input. We will consider adjusting the pace for beginners in the future."
+      },
+      {
+        "text": "I enjoyed learning the basics of web development. The course materials were well-organized.",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your review! We're happy to hear that you found the materials helpful."
+      },
+      {
+        "text": "The instructor did a great job explaining complex concepts in a simple way.",
+        "evaluation": 5,
+        "teacherAnswer": "We're delighted to hear that you found our instructor effective. Thank you for your feedback!"
+      },
+      {
+        "text": "I didn't find this course challenging enough. It felt too basic for my level of experience.",
+        "evaluation": 2,
+        "teacherAnswer": "We apologize if the course didn't meet your expectations. We will take your feedback into account for future improvements."
+      },
+      {
+        "text": "The course provided a good introduction to HTML and CSS, but lacked in-depth coverage of JavaScript.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your input! We strive to provide balanced coverage of different technologies, and we will consider including more JavaScript content in the future."
+      },
+      {
+        "text": "I found the exercises and quizzes very helpful in reinforcing the concepts taught in each lesson.",
+        "evaluation": 4,
+        "teacherAnswer": "We're pleased to hear that the exercises and quizzes were beneficial for your learning. Thank you for your review!"
+      },
+      {
+        "text": "The course provided a good overview of web development, but I wish there were more practical projects to apply the knowledge.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your feedback! We understand the importance of practical projects and will consider incorporating more of them into the course."
+      },
+      {
+        "text": "I had some technical issues with the course platform, which affected my learning experience.",
+        "evaluation": 2,
+        "teacherAnswer": "We apologize for any technical difficulties you encountered. Our team is working to improve the platform's stability. Thank you for bringing this to our attention."
+      },
+      {
+        "text": "The course content was up-to-date and relevant to current web development trends.",
+        "evaluation": 5,
+        "teacherAnswer": "We're glad you found the content relevant. We strive to keep our course materials up-to-date. Thank you for your review!"
+      },
+      {
+        "text": "The course provided step-by-step guidance, making it easy to follow along and grasp the concepts.",
+        "evaluation": 4,
+        "teacherAnswer": "We're thrilled to hear that our course structure was helpful for your learning. Thank you for your feedback!"
+      },
+      {
+        "text": "I found the course to be too theory-focused and lacking practical coding exercises.",
+        "evaluation": 2,
+        "teacherAnswer": "We appreciate your feedback. We continuously strive to strike a balance between theory and practical coding exercises."
+      },
+      {
+        "text": "The course had a supportive online community where I could ask questions and exchange ideas with fellow learners.",
+        "evaluation": 5,
+        "teacherAnswer": "We're glad you enjoyed participating in our online community. It's great to hear that you found it supportive. Thank you for your review!"
+      },
+      {
+        "text": "The course materials were well-structured and easy to navigate.",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your feedback! We're pleased to hear that you found our materials well-structured and user-friendly."
+      },
+      {
+        "text": "I had high expectations for this course, but it fell short in terms of depth and practical application.",
+        "evaluation": 2,
+        "teacherAnswer": "We apologize if the course didn't meet your expectations. We understand the importance of depth and practical application, and we will take your feedback into consideration."
+      },
+      {
+        "text": "The course exceeded my expectations. The instructor was knowledgeable and engaging.",
+        "evaluation": 5,
+        "teacherAnswer": "We're thrilled to hear that the course exceeded your expectations. Thank you for your kind words about our instructor!"
+      }
+    ],
+    "courseId": "64bdb4526e784880349b5c0d"
+  },
+  {
+    "reviews": [
+      {
+        "text": "The HTML Foundations course was extremely informative and well-structured. I learned a lot and feel confident in my understanding of HTML. The instructor was also very knowledgeable and always available to answer questions.",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your feedback! I'm glad to hear that you found the course informative and well-structured."
+      },
+      {
+        "text": "I found the HTML Foundations course to be a bit too basic for my level of knowledge. I was hoping for more advanced topics. The instructor, however, was very helpful and responsive to my questions.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your feedback! I apologize if the course was not as advanced as you had hoped. I appreciate your compliments about my assistance during the course."
+      },
+      {
+        "text": "HTML Foundations provided a comprehensive introduction to HTML coding. The course materials were easy to follow and the exercises were practical. The instructor's explanations were clear and concise.",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your review! I'm glad you found the course materials and explanations helpful."
+      },
+      {
+        "text": "I had a great experience with the HTML Foundations course. The content was delivered in a way that was engaging and easy to understand. The instructor was always available to provide guidance. Highly recommended!",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your positive feedback! I'm thrilled to hear that you had a great experience with the course and found it engaging and easy to understand."
+      },
+      {
+        "text": "The HTML Foundations course is perfect for beginners who want to learn HTML from scratch. The instructor does an excellent job of breaking down complex concepts into manageable chunks. A fantastic course overall!",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your fantastic review! I'm delighted to know that the course was helpful for beginners in learning HTML."
+      },
+      {
+        "text": "I enrolled in the HTML Foundations course to refresh my HTML skills, and it exceeded my expectations. The course content was comprehensive, and the instructor provided insightful explanations. Highly recommended!",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your high recommendation! I'm thrilled that the course exceeded your expectations and helped refresh your HTML skills."
+      },
+      {
+        "text": "I found the HTML Foundations course to be a bit too slow-paced for my liking. The topics covered were too basic, and I was hoping for more in-depth learning. The instructor, however, was knowledgeable and responsive.",
+        "evaluation": 2,
+        "teacherAnswer": "Thank you for your feedback. I apologize if the course was not as fast-paced or advanced as you had desired. I appreciate your compliments about my knowledge and responsiveness."
+      },
+      {
+        "text": "The HTML Foundations course provided a solid foundation for understanding HTML. The instructor was patient and supportive throughout the course, and the exercises were helpful in reinforcing the concepts.",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your review! I'm glad you found the course helpful in establishing a solid foundation in HTML."
+      },
+      {
+        "text": "I had high expectations for the HTML Foundations course based on the syllabus, but unfortunately, it fell short. The course lacked depth and some important topics were not covered adequately. The instructor's availability was commendable though.",
+        "evaluation": 2,
+        "teacherAnswer": "Thank you for your feedback. I apologize if the course didn't meet your expectations in terms of depth and coverage. However, I'm glad to hear that my availability was commendable."
+      },
+      {
+        "text": "The HTML Foundations course is a great starting point for anyone interested in web development. The instructor explains everything thoroughly and provides practical examples. I thoroughly enjoyed the course.",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your positive feedback! I'm delighted to know that the course was a great starting point and that you thoroughly enjoyed it."
+      },
+      {
+        "text": "I had an amazing learning experience with the HTML Foundations course. The instructor's teaching style was clear and engaging, and the course content was comprehensive. I highly recommend it!",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your amazing review! I'm thrilled to hear that you had an engaging learning experience with the course and highly recommend it."
+      },
+      {
+        "text": "The HTML Foundations course is a well-structured and easy-to-follow course for beginners. The instructor's explanations were clear, and the exercises provided hands-on practice. Highly recommended!",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your high recommendation! I'm glad you found the course well-structured, easy-to-follow, and beneficial for beginners."
+      },
+      {
+        "text": "I expected more practical exercises in the HTML Foundations course. While the theory was adequately covered, I would have liked more hands-on practice. The instructor, however, was responsive and helpful.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your feedback. I apologize if the practical exercises were not as extensive as you had desired. I'm glad to hear that you found me responsive and helpful."
+      },
+      {
+        "text": "The HTML Foundations course offers a comprehensive introduction to HTML. The content is well-organized and easy to grasp. The instructor's knowledge and support were instrumental in my learning journey.",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your positive review! I'm delighted that you found the course comprehensive, well-organized, and beneficial to your learning journey."
+      },
+      {
+        "text": "I found the HTML Foundations course to be a bit too fast-paced. The topics moved quickly, and some more time for practice would have been beneficial. The instructor, however, was knowledgeable and responsive.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your feedback. I apologize if the course was too fast-paced for your liking. I appreciate your compliments about my knowledge and responsiveness."
+      }
+    ],
+    "courseId": "64bdb4536e784880349b5c14"
+  }
+]

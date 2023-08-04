@@ -1,0 +1,70 @@
+[
+  {
+    "courseId": "64bdb4526e784880349b5c0d",
+    "requirements": [
+      "Basic understanding of HTML and CSS",
+      "Familiarity with JavaScript",
+      "Knowledge of programming principles",
+      "Ability to work with code editors and terminals",
+      "Understanding of responsive web design and cross-browser compatibility"
+    ],
+    "objectives": [
+      "1. Understand the basics of HTML and CSS",
+      "2. Learn how to build a static website using HTML and CSS",
+      "3. Explore different web development frameworks and libraries",
+      "4. Gain knowledge of JavaScript and its role in web development",
+      "5. Develop problem-solving skills in web development"
+    ]
+  },
+  {
+    "courseId": "64bdb4536e784880349b5c14",
+    "requirements": [
+      "Basic understanding of computer and internet usage",
+      "Familiarity with web browsers",
+      "Ability to use a text editor",
+      "Knowledge of basic HTML tags and syntax",
+      "Understanding of CSS (Cascading Style Sheets)"
+    ],
+    "objectives": [
+      "Understand the basic structure and syntax of HTML",
+      "Learn how to create different types of HTML elements and tags",
+      "Explore the usage of attributes and their impact on HTML elements",
+      "Master the art of formatting and organizing content using HTML",
+      "Acquire the skills to create and link multiple web pages using HTML"
+    ]
+  },
+  {
+    "courseId": "64bdb4536e784880349b5c1b",
+    "requirements": [
+      "Basic knowledge of HTML",
+      "Understanding of CSS syntax",
+      "Familiarity with CSS selectors",
+      "Experience with CSS Box Model",
+      "Ability to work with Responsive Web Design"
+    ],
+    "objectives": [
+      "Understanding the basics of CSS syntax",
+      "Mastering CSS selectors and their specificity",
+      "Exploring various CSS layout techniques",
+      "Learning to create responsive designs using media queries",
+      "Understanding CSS animation and transition properties"
+    ]
+  },
+  {
+    "courseId": "64bdb4536e784880349b5c22",
+    "requirements": [
+      "Basic understanding of HTML",
+      "Familiarity with CSS",
+      "Knowledge of programming concepts",
+      "Comfortable with basic mathematical operations",
+      "Access to a computer with internet connection"
+    ],
+    "objectives": [
+      "Understand the basic syntax and structure of JavaScript",
+      "Learn how to declare and use variables in JavaScript",
+      "Master the fundamental data types and operations in JavaScript",
+      "Become proficient in using conditional statements and loops in JavaScript",
+      "Explore and utilize functions to write reusable code in JavaScript"
+    ]
+  }
+]
