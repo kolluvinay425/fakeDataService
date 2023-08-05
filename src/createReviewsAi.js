@@ -101,26 +101,39 @@ const createAiReviews = async (data) => {
       const reviewText = review.reviews[i].text; // Get the review text from the generated data
 
       console.log(
-        `Creating review for "${review.title}" from ${user.name} ${user.surname} `
+        `Creating review for "${review.title}" from ${user.name} ${user.surname} with teacher answer`
       );
-      const reviewObject = {
-        user: reviewUser,
-        title: review.title,
-        reviewText: reviewText,
-        stars: review.reviews[i].evaluation,
-        userId: user._id,
-        course: review.courseId,
-        answered: withAnswer ? true : false,
-        teacherAnswer: withAnswer
-          ? {
-              userId: teacher._id,
-              name: teacher.name,
-              text: review.reviews[i].teacherAnswer,
-              profilePicture: teacher.profilePicture,
-            }
-          : {},
-      };
-      await Review.create(reviewObject);
+      if (withAnswer) {
+        const reviewObject = {
+          user: reviewUser,
+          title: review.title,
+          reviewText: reviewText,
+          stars: review.reviews[i].evaluation,
+          userId: user._id,
+          course: review.courseId,
+          answered: withAnswer ? true : false,
+          teacherAnswer: {
+            userId: teacher._id,
+            name: teacher.name,
+            text: review.reviews[i].teacherAnswer,
+            profilePicture: teacher.profilePicture,
+          },
+        };
+        await Review.create(reviewObject);
+      } else {
+        `Creating review for "${review.title}" from ${user.name} ${user.surname} with out teacher answer`;
+
+        const reviewObject = {
+          user: reviewUser,
+          title: review.title,
+          reviewText: reviewText,
+          stars: review.reviews[i].evaluation,
+          userId: user._id,
+          course: review.courseId,
+          answered: withAnswer ? true : false,
+        };
+        await Review.create(reviewObject);
+      }
     }
   }
 };

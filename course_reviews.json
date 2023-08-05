@@ -2,84 +2,79 @@
   {
     "reviews": [
       {
-        "text": "This course was excellent. I learned a lot about web development and feel confident in my skills now.",
+        "text": "Great course, learned a lot!",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for your kind words! I'm glad you found the course helpful."
+        "teacherAnswer": "Thank you for your positive feedback!"
       },
       {
-        "text": "The Introduction to Web Development course provided a solid foundation for beginners. The lessons were clear and easy to follow.",
-        "evaluation": 4,
-        "teacherAnswer": "I appreciate your feedback! It's great to hear that the course was beneficial to you."
-      },
-      {
-        "text": "I found this course to be quite disappointing. The content was outdated and didn't cover some important topics.",
+        "text": "The course material was outdated. Not recommended.",
         "evaluation": 2,
-        "teacherAnswer": "I'm sorry you didn't have a positive experience. We'll work on improving the course content."
+        "teacherAnswer": "We appreciate your feedback and will work on improving the course material."
       },
       {
-        "text": "The instructor was very knowledgeable and explained complex concepts in a simple manner. Highly recommended!",
-        "evaluation": 5,
-        "teacherAnswer": "Thank you for your recommendation! I'm happy to hear that you found my explanations helpful."
-      },
-      {
-        "text": "I expected more hands-on activities and practical examples in this course. The theory was too overwhelming.",
-        "evaluation": 3,
-        "teacherAnswer": "I understand your concern. We'll take your feedback into account and consider incorporating more practical exercises."
-      },
-      {
-        "text": "The Introduction to Web Development course exceeded my expectations. The material was engaging and the quizzes helped reinforce learning.",
-        "evaluation": 5,
-        "teacherAnswer": "I'm thrilled to hear that the course exceeded your expectations! Your feedback motivates me to continue delivering quality content."
-      },
-      {
-        "text": "I felt the pace of the course was too slow. I would have preferred to cover more advanced topics.",
-        "evaluation": 3,
-        "teacherAnswer": "Thank you for sharing your thoughts. We strive to cater to learners of different levels, and we'll take your feedback into consideration for future improvements."
-      },
-      {
-        "text": "This course provided a great introduction to web development. The instructor's explanations were clear and easy to understand.",
+        "text": "Highly engaging and interactive sessions. Loved it!",
         "evaluation": 4,
-        "teacherAnswer": "I'm glad you found the course introduction helpful! If you have any questions, feel free to ask."
+        "teacherAnswer": "We're glad you enjoyed the course. Thank you for your feedback!"
       },
       {
-        "text": "The course material was well-organized, making it easy to follow along and grasp the concepts.",
-        "evaluation": 4,
-        "teacherAnswer": "Thank you for your feedback! I'm glad the organization of the course helped with your learning."
-      },
-      {
-        "text": "I didn't find the course engaging enough. It lacked interactive elements and real-world application.",
+        "text": "Disorganized structure, often felt lost.",
         "evaluation": 2,
-        "teacherAnswer": "I'm sorry to hear you didn't find the course engaging. We'll consider incorporating more interactive elements in the future."
+        "teacherAnswer": "We apologize for any confusion caused. We'll take your feedback into consideration for future improvements."
       },
       {
-        "text": "I was disappointed in the lack of support materials provided with the course. Additional resources would have been beneficial.",
-        "evaluation": 3,
-        "teacherAnswer": "Thank you for your input. We'll work on providing more supplementary materials to enhance the learning experience."
-      },
-      {
-        "text": "The course covered all the basics of web development effectively. I now feel confident to start building my own websites.",
+        "text": "The instructor was very knowledgeable and helpful.",
         "evaluation": 5,
-        "teacherAnswer": "Congratulations on gaining confidence in web development! If you need any further guidance, feel free to reach out."
+        "teacherAnswer": "Thank you for your kind words! We're happy to know that you found our instructor helpful."
       },
       {
-        "text": "I encountered technical issues throughout the course, which hindered my learning experience.",
+        "text": "Limited practical exercises provided.",
+        "evaluation": 3,
+        "teacherAnswer": "We appreciate your feedback regarding the practical exercises. We'll strive to include more in future updates."
+      },
+      {
+        "text": "The course content was too basic for my expectations.",
         "evaluation": 2,
-        "teacherAnswer": "I apologize for any technical difficulties you faced. We'll investigate and rectify these issues for a smoother learning experience."
+        "teacherAnswer": "We apologize if the course didn't meet your expectations. We'll keep your feedback in mind for future improvements."
       },
       {
-        "text": "The instructor's teaching style was engaging and kept me motivated to continue learning.",
-        "evaluation": 4,
-        "teacherAnswer": "Thank you! I strive to keep my teaching engaging to encourage continuous learning."
-      },
-      {
-        "text": "The course curriculum could have been more comprehensive. I felt there were important topics missing.",
-        "evaluation": 3,
-        "teacherAnswer": "We appreciate your feedback. We'll review the course curriculum and consider adding the missing topics."
-      },
-      {
-        "text": "The course provided a solid foundation in web development. I highly recommend it for beginners.",
+        "text": "Instructor was engaging and explained complex concepts in a simplified manner.",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for your recommendation! I'm glad you found the course helpful for beginners."
+        "teacherAnswer": "Thank you for your positive feedback! We're glad you found our instructor engaging."
+      },
+      {
+        "text": "Lack of real-world examples made it hard to apply the concepts learned.",
+        "evaluation": 3,
+        "teacherAnswer": "We appreciate your feedback and will consider incorporating more real-world examples in the course material."
+      },
+      {
+        "text": "The course was well-structured, building upon each topic effectively.",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your feedback! We're glad you found the course well-structured."
+      },
+      {
+        "text": "Outstanding course, worth every penny!",
+        "evaluation": 5,
+        "teacherAnswer": "We're thrilled to hear that you found our course outstanding. Thank you for your positive feedback!"
+      },
+      {
+        "text": "The course material was comprehensive and easy to follow.",
+        "evaluation": 4,
+        "teacherAnswer": "We're glad you found the course material comprehensive and easy to follow. Thank you for your feedback!"
+      },
+      {
+        "text": "The course lacked depth in certain topics.",
+        "evaluation": 3,
+        "teacherAnswer": "We appreciate your feedback and will work on expanding the depth of certain topics in the course."
+      },
+      {
+        "text": "The instructor was unresponsive to student queries.",
+        "evaluation": 1,
+        "teacherAnswer": "We apologize for the unsatisfactory experience. Your feedback will help us improve our responsiveness."
+      },
+      {
+        "text": "The course provided a solid foundation for web development.",
+        "evaluation": 4,
+        "teacherAnswer": "We're thrilled to hear that you found the course helpful in building a solid foundation. Thank you for your feedback!"
       }
     ],
     "courseId": "64bdb4526e784880349b5c0d",
@@ -89,79 +84,79 @@
   {
     "reviews": [
       {
-        "text": "This course is amazing! I learned so much about HTML.",
+        "text": "Great course! I learned so much.",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for your positive feedback!"
+        "teacherAnswer": "Thank you for your feedback!"
       },
       {
-        "text": "The content in this course is outdated and not helpful at all.",
-        "evaluation": 1,
-        "teacherAnswer": "We apologize if you found the content unsatisfactory. We constantly update our materials to provide the most relevant information."
-      },
-      {
-        "text": "I found the explanations in this course to be very clear and easy to understand.",
+        "text": "The course content was thorough and easy to follow.",
         "evaluation": 4,
-        "teacherAnswer": "We're glad to hear that you found the explanations helpful!"
+        "teacherAnswer": "We appreciate your positive review!"
       },
       {
-        "text": "The course materials are poorly organized and difficult to navigate.",
-        "evaluation": 2,
-        "teacherAnswer": "We appreciate your feedback and will consider improving the organization of the materials."
+        "text": "This course exceeded my expectations. Highly recommended.",
+        "evaluation": 4,
+        "teacherAnswer": "We're glad you enjoyed the course!"
       },
       {
-        "text": "I expected more practical exercises in this course.",
+        "text": "I found the explanations clear and concise.",
         "evaluation": 3,
-        "teacherAnswer": "Thank you for your suggestion. We will take it into account for future updates."
+        "teacherAnswer": "Thank you for your feedback. We'll work on improving."
       },
       {
-        "text": "The instructor's teaching style was engaging and kept me interested throughout the course.",
-        "evaluation": 5,
-        "teacherAnswer": "We're thrilled that you found the teaching style engaging!"
-      },
-      {
-        "text": "The course covers all the fundamental concepts of HTML effectively.",
-        "evaluation": 4,
-        "teacherAnswer": "We strive to provide a comprehensive coverage of HTML concepts. Thank you for your positive feedback!"
-      },
-      {
-        "text": "The quizzes in this course were too easy and did not challenge me enough.",
+        "text": "Lack of real-life examples made it difficult to understand some concepts.",
         "evaluation": 2,
-        "teacherAnswer": "We appreciate your feedback and apologize if the quizzes didn't meet your expectations. We will look into making them more challenging."
+        "teacherAnswer": "We appreciate your input and will consider adding more examples."
       },
       {
-        "text": "I had a hard time following along with the course examples.",
+        "text": "The quizzes were too easy and didn't challenge me enough.",
         "evaluation": 3,
-        "teacherAnswer": "We apologize if you had difficulties following the examples. Please feel free to reach out to us for any clarification needed."
+        "teacherAnswer": "We'll keep your feedback in mind while updating the quizzes."
       },
       {
-        "text": "The course provided a good foundation for HTML, but I would have liked more in-depth explanations.",
-        "evaluation": 4,
-        "teacherAnswer": "Thank you for your feedback. We will take it into consideration for enhancing the depth of explanations in the course."
-      },
-      {
-        "text": "The instructor was knowledgeable and explained everything concisely.",
-        "evaluation": 5,
-        "teacherAnswer": "We're glad you found the instructor knowledgeable and the explanations concise!"
-      },
-      {
-        "text": "There were too many typos and errors in the course materials.",
-        "evaluation": 2,
-        "teacherAnswer": "We apologize for any typos or errors you encountered. We continuously review and update our materials to ensure accuracy."
-      },
-      {
-        "text": "The course videos were of poor quality and hard to understand.",
+        "text": "The course layout was confusing and disorganized.",
         "evaluation": 1,
-        "teacherAnswer": "We apologize for the inconvenience. We will work on improving the video quality and clarity of explanations."
+        "teacherAnswer": "We apologize for the inconvenience. We'll work on improving the course structure."
       },
       {
-        "text": "I found the course assignments to be challenging and helpful for reinforcing the concepts.",
+        "text": "The video lectures were engaging and kept me interested throughout.",
         "evaluation": 4,
-        "teacherAnswer": "We're glad you found the assignments challenging and helpful for reinforcing the concepts!"
+        "teacherAnswer": "We're glad you enjoyed the lectures!"
       },
       {
-        "text": "The course provided a good introduction to HTML for beginners.",
+        "text": "The course materials were comprehensive and well-presented.",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your positive feedback! It means a lot."
+      },
+      {
+        "text": "I would have liked more hands-on practice exercises.",
+        "evaluation": 3,
+        "teacherAnswer": "Noted! We'll try to incorporate more practice exercises in the future."
+      },
+      {
+        "text": "The course was a bit too basic for my level of understanding.",
+        "evaluation": 2,
+        "teacherAnswer": "We apologize if the course content didn't meet your expectations."
+      },
+      {
+        "text": "The course helped me build a strong foundation in HTML.",
+        "evaluation": 5,
+        "teacherAnswer": "That's great to hear! Keep up the good work."
+      },
+      {
+        "text": "The instructor was knowledgeable and answered questions promptly.",
         "evaluation": 4,
-        "teacherAnswer": "Thank you for your positive feedback. We aim to provide a solid introduction to HTML!"
+        "teacherAnswer": "We appreciate your positive feedback about the instructor."
+      },
+      {
+        "text": "I expected more interactive elements in the course material.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your input. We'll consider adding more interactive elements."
+      },
+      {
+        "text": "The course was informative, but the pace was a bit slow for me.",
+        "evaluation": 3,
+        "teacherAnswer": "We'll take your feedback into account for future improvements."
       }
     ],
     "courseId": "64bdb4536e784880349b5c14",
@@ -171,79 +166,79 @@
   {
     "reviews": [
       {
-        "text": "Great course with comprehensive content.",
+        "text": "Great course, learned a lot!",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for the positive feedback! We're glad you found the content helpful."
+        "teacherAnswer": "Thank you for your feedback!"
       },
       {
-        "text": "The course was very informative and well-structured.",
+        "text": "The course was informative and well-structured.",
         "evaluation": 4,
-        "teacherAnswer": "Thank you for your feedback! We appreciate your positive comments."
+        "teacherAnswer": "Glad you found the course helpful!"
       },
       {
-        "text": "Disappointing course, lacks practical examples.",
+        "text": "Disappointed with the lack of practical exercises.",
         "evaluation": 2,
-        "teacherAnswer": "We apologize for any inconvenience caused. We'll work on providing more practical examples in the future."
+        "teacherAnswer": "We appreciate your feedback and will work on improving the practical exercises."
       },
       {
-        "text": "Enjoyed the course and learned a lot!",
+        "text": "The instructor explained complex concepts clearly.",
         "evaluation": 4,
-        "teacherAnswer": "Thank you for your kind words! We're happy to hear that you enjoyed the course."
+        "teacherAnswer": "Thank you for your kind words!"
       },
       {
-        "text": "Course content was too basic, I expected more advanced techniques.",
+        "text": "Too many typos in the course materials.",
         "evaluation": 3,
-        "teacherAnswer": "We appreciate your feedback. We'll consider adding more advanced techniques to meet the needs of advanced learners."
+        "teacherAnswer": "We apologize for the inconvenience and will make sure to correct any typos."
       },
       {
-        "text": "The course was a waste of time, didn't learn anything new.",
-        "evaluation": 1,
-        "teacherAnswer": "We're sorry to hear that you didn't find the course valuable. Please reach out to us with specific areas you were looking to learn, and we'll try to assist you."
-      },
-      {
-        "text": "In-depth explanations and clear demonstrations. Highly recommended!",
+        "text": "The course provided valuable tips and tricks.",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for the recommendation! We're glad you found our explanations and demonstrations helpful."
+        "teacherAnswer": "We're thrilled to hear that you found the tips helpful!"
       },
       {
-        "text": "The exercises were challenging and helped reinforce the concepts taught.",
-        "evaluation": 4,
-        "teacherAnswer": "We appreciate your feedback! It's great to know that the exercises were effective in reinforcing the concepts."
-      },
-      {
-        "text": "Course materials were outdated and not relevant to modern web development.",
+        "text": "Not enough examples to practice on.",
         "evaluation": 2,
-        "teacherAnswer": "We apologize for any inconvenience caused. We'll review and update the course materials to ensure they remain relevant."
+        "teacherAnswer": "We appreciate your feedback and will consider adding more examples for practice."
       },
       {
-        "text": "The course provided a good foundation for CSS styling.",
-        "evaluation": 4,
-        "teacherAnswer": "Thank you for your feedback! We're glad the course helped in building a strong CSS foundation."
-      },
-      {
-        "text": "The instructor was engaging and kept me interested throughout the course.",
-        "evaluation": 5,
-        "teacherAnswer": "Thank you for your kind words! We strive to keep our students engaged and interested in the course material."
-      },
-      {
-        "text": "The course lacked detailed explanations and examples.",
-        "evaluation": 3,
-        "teacherAnswer": "We appreciate your feedback. We'll review and improve the explanations and examples provided."
-      },
-      {
-        "text": "The course was too advanced for beginners like me. Difficult to follow.",
+        "text": "The content was outdated, needs to be updated.",
         "evaluation": 2,
-        "teacherAnswer": "We apologize if the course seemed advanced. We'll consider adding more beginner-friendly content to assist learners like you."
+        "teacherAnswer": "Thank you for bringing this to our attention. We'll make sure to update the content."
       },
       {
-        "text": "The course exceeded my expectations. Well worth the investment.",
+        "text": "The instructor was engaging and knowledgeable.",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for your positive feedback! We're thrilled to know that the course exceeded your expectations."
+        "teacherAnswer": "Thank you! We're glad you enjoyed the instructor's teaching style."
       },
       {
-        "text": "Course delivery was slow. The instructor could've been more energetic.",
+        "text": "The course exceeded my expectations.",
+        "evaluation": 5,
+        "teacherAnswer": "We're thrilled to hear that! Thank you for your support."
+      },
+      {
+        "text": "The course lacked clear explanations of certain topics.",
         "evaluation": 3,
-        "teacherAnswer": "We apologize for any inconvenience caused. We'll work on improving the pace and energy during course delivery."
+        "teacherAnswer": "We apologize for any confusion. We'll make sure to provide clearer explanations in the future."
+      },
+      {
+        "text": "The materials were well-organized and easy to follow.",
+        "evaluation": 4,
+        "teacherAnswer": "That's great to hear! We put a lot of effort into organizing the materials."
+      },
+      {
+        "text": "The course was a bit repetitive at times.",
+        "evaluation": 3,
+        "teacherAnswer": "We appreciate your feedback. We'll take note of this for future improvements."
+      },
+      {
+        "text": "The course helped me improve my CSS skills significantly.",
+        "evaluation": 5,
+        "teacherAnswer": "That's wonderful to hear! Keep up the great work!"
+      },
+      {
+        "text": "The course lacked real-life examples.",
+        "evaluation": 3,
+        "teacherAnswer": "Thank you for your feedback. We'll work on incorporating more real-life examples."
       }
     ],
     "courseId": "64bdb4536e784880349b5c1b",
@@ -253,79 +248,79 @@
   {
     "reviews": [
       {
-        "text": "Great course, learned a lot!",
+        "text": "This course is a great introduction to JavaScript. The concepts are explained clearly and the exercises are practical. I would highly recommend it.",
         "evaluation": 5,
-        "teacherAnswer": "Thank you for your feedback!"
+        "teacherAnswer": "Thank you for your feedback! We're glad you found the course helpful."
       },
       {
-        "text": "Clear explanations, well-structured content.",
-        "evaluation": 4,
-        "teacherAnswer": "Glad you found it helpful. Keep coding!"
-      },
-      {
-        "text": "Not enough practical exercises.",
-        "evaluation": 2,
-        "teacherAnswer": "We appreciate your input. We will improve the course based on your feedback."
-      },
-      {
-        "text": "Highly recommended for beginners!",
-        "evaluation": 5,
-        "teacherAnswer": "Thank you for recommending our course!"
-      },
-      {
-        "text": "The instructor speaks too fast.",
+        "text": "I found this course to be quite challenging. The instructor moves quickly through the material and I had to spend extra time on my own to fully understand some concepts. I would give it a 3 out of 5.",
         "evaluation": 3,
-        "teacherAnswer": "We will take your comment into consideration. Thank you."
+        "teacherAnswer": "We appreciate your feedback. We understand that the pace may be fast for some learners, but we're here to support you in your learning journey."
       },
       {
-        "text": "Great course for building a strong JavaScript foundation.",
-        "evaluation": 5,
-        "teacherAnswer": "We're thrilled to hear that you found it helpful!"
-      },
-      {
-        "text": "Could have covered more advanced topics.",
-        "evaluation": 3,
-        "teacherAnswer": "Thank you for your suggestion. We'll consider it in future updates."
-      },
-      {
-        "text": "Was expecting more practical examples.",
-        "evaluation": 2,
-        "teacherAnswer": "We apologize for the inconvenience. We will work on enhancing the examples in the course."
-      },
-      {
-        "text": "Informative, yet engaging.",
+        "text": "The JavaScript Fundamentals course exceeded my expectations. The instructor's teaching style is engaging and the course content is comprehensive. I would rate it a solid 4 out of 5.",
         "evaluation": 4,
-        "teacherAnswer": "We're glad you enjoyed the learning experience!"
+        "teacherAnswer": "Thanks for taking the time to provide your feedback. We're thrilled to hear that you enjoyed the course!"
       },
       {
-        "text": "Not suitable for intermediate or advanced learners.",
-        "evaluation": 2,
-        "teacherAnswer": "We appreciate your feedback. We'll work on offering more advanced courses as well."
-      },
-      {
-        "text": "Exceeded my expectations, great value for money.",
+        "text": "I took this course as a complete beginner in programming, and it was the perfect starting point. The explanations are clear and the exercises helped solidify my understanding. I would give it a 5 out of 5.",
         "evaluation": 5,
-        "teacherAnswer": "We're thrilled to have provided value to you. Thank you!"
+        "teacherAnswer": "We're delighted to hear that the course was helpful for you as a beginner. Keep up the great work!"
       },
       {
-        "text": "Some video lectures were too long.",
-        "evaluation": 3,
-        "teacherAnswer": "We'll keep your comment in mind while planning the duration of future videos."
+        "text": "I was disappointed with the JavaScript Fundamentals course. The lessons were too basic and didn't dive deep enough into advanced topics. I would rate it a 2 out of 5.",
+        "evaluation": 2,
+        "teacherAnswer": "We're sorry to hear that the course didn't meet your expectations. We value your feedback and will take it into consideration for future updates."
       },
       {
-        "text": "Could use more interactive quizzes.",
+        "text": "I have taken several JavaScript courses before, but this one stands out. The instructor covers complex topics with ease and provides excellent examples. A definite 5 out of 5!",
+        "evaluation": 5,
+        "teacherAnswer": "Thank you for your kind words! We're thrilled to hear that you found the course valuable despite your previous experience."
+      },
+      {
+        "text": "I enjoyed the JavaScript Fundamentals course overall. The lectures were well-structured and the quizzes helped reinforce the material. I would rate it a solid 4 out of 5.",
         "evaluation": 4,
-        "teacherAnswer": "Thank you for your suggestion. We will add more interactive quizzes to enhance the learning experience."
+        "teacherAnswer": "We appreciate your feedback! It's great to know that the course structure and quizzes were beneficial to your learning experience."
       },
       {
-        "text": "Not enough examples for each concept.",
-        "evaluation": 2,
-        "teacherAnswer": "We apologize for the inconvenience. We'll work on adding more examples to clarify each concept."
-      },
-      {
-        "text": "The course covered everything I needed to know.",
+        "text": "This course made learning JavaScript fun and engaging. The instructor's enthusiasm is contagious. I would highly recommend it to anyone starting their coding journey. Solid 5 out of 5!",
         "evaluation": 5,
-        "teacherAnswer": "We're thrilled to have met your expectations! Keep coding!"
+        "teacherAnswer": "Thank you for your enthusiastic review! We're thrilled to know that you enjoyed the course and found it engaging."
+      },
+      {
+        "text": "I initially struggled with some concepts in this course, but the instructor was always available to answer questions and provide support. I would rate it a 4 out of 5.",
+        "evaluation": 4,
+        "teacherAnswer": "We're glad to hear that you found our support helpful during your learning journey. Don't hesitate to reach out if you have any further questions."
+      },
+      {
+        "text": "The JavaScript Fundamentals course was a bit disappointing. The content felt outdated and the pace was too slow for my liking. I would give it a 2 out of 5.",
+        "evaluation": 2,
+        "teacherAnswer": "We apologize if the course didn't meet your expectations. Your feedback is valuable to us and we'll strive to improve the content and pace in future updates."
+      },
+      {
+        "text": "I have taken multiple JavaScript courses in the past, and this one is by far the best. The instructor breaks down complex concepts into manageable chunks and provides helpful real-world examples. A solid 5 out of 5!",
+        "evaluation": 5,
+        "teacherAnswer": "Thanks for your positive review! We're delighted to hear that you found the course to be the best among the ones you've taken before."
+      },
+      {
+        "text": "The JavaScript Fundamentals course is excellent for beginners. The explanations are clear and the exercises are well-structured. I would rate it a 4 out of 5.",
+        "evaluation": 4,
+        "teacherAnswer": "We're glad to hear that the course worked well for you as a beginner. Keep up the great work!"
+      },
+      {
+        "text": "I was expecting more challenging exercises in this course. The content was too easy for my level. I would give it a 2 out of 5.",
+        "evaluation": 2,
+        "teacherAnswer": "We apologize if the course didn't meet your expectations in terms of challenge level. Your feedback will help us improve the course for future learners."
+      },
+      {
+        "text": "As an experienced programmer, I found this course to be a great refresher. The material is presented concisely and the examples are relevant. A solid 4 out of 5.",
+        "evaluation": 4,
+        "teacherAnswer": "Thank you for your feedback! We're glad to know that the course served as a valuable refresher for you."
+      },
+      {
+        "text": "This course provided a solid foundation in JavaScript. The instructor's explanations were easy to follow and the exercises solidified my understanding. I would rate it a 4 out of 5.",
+        "evaluation": 4,
+        "teacherAnswer": "We appreciate your review! It's great to know that the course helped build a solid foundation in JavaScript for you."
       }
     ],
     "courseId": "64bdb4536e784880349b5c22",

@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "exec": "node ./src/createReviewsAi.js"
+    "exec": "node ./src/addObjectiveAndRequirements.js"
   },
   "keywords": [],
   "author": "",
