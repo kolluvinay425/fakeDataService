@@ -21,7 +21,7 @@ import { createObjectivesAndRequirements } from "./addObjectiveAndRequirements.j
 dotenv.config();
 
 const createAiReview = async (startingIndex, elementsInProcess) => {
-  await mongoose.connect(process.env.MONGO_URI);
+  // await mongoose.connect(process.env.MONGO_URI);
   console.log("Connected to MongoDB");
 
   const configuration = new Configuration({
@@ -111,7 +111,7 @@ const createAiReviews = async (data) => {
           stars: review.reviews[i].evaluation,
           userId: user._id,
           course: review.courseId,
-          answered: withAnswer ? true : false,
+          answered: true,
           teacherAnswer: {
             userId: teacher._id,
             name: teacher.name,
@@ -121,7 +121,9 @@ const createAiReviews = async (data) => {
         };
         await Review.create(reviewObject);
       } else {
-        `Creating review for "${review.title}" from ${user.name} ${user.surname} with out teacher answer`;
+        console.log(
+          `Creating review for "${review.title}" from ${user.name} ${user.surname} with out teacher answer`
+        );
 
         const reviewObject = {
           user: reviewUser,
@@ -130,7 +132,7 @@ const createAiReviews = async (data) => {
           stars: review.reviews[i].evaluation,
           userId: user._id,
           course: review.courseId,
-          answered: withAnswer ? true : false,
+          answered: false,
         };
         await Review.create(reviewObject);
       }
@@ -142,17 +144,19 @@ const createReviewsAndSave = async () => {
   await mongoose.connect(process.env.MONGO_URI);
   console.log("Connected to MongoDB");
 
-  let numberOfCourses = await Course.count();
+  let numberOfCourses = 3;
 
   if (!fs.existsSync("course_reviews.json")) {
-    for (let i = 0; i < numberOfCourses; i += 500) {
-      await createAiReview(i, 500);
+    for (let i = 0; i < numberOfCourses; i += 2) {
+      await createAiReview(i, 2);
     }
   }
 
   let data = JSON.parse(fs.readFileSync("course_reviews.json"));
   await createAiReviews(data);
+  console.log("created reviews successfully");
+  await createObjectivesAndRequirements();
+  console.log("created objectives and requirements successfully");
 };
 
 createReviewsAndSave();
-createObjectivesAndRequirements();

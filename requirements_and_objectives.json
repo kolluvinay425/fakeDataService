@@ -2,69 +2,69 @@
   {
     "courseId": "64bdb4526e784880349b5c0d",
     "requirements": [
-      "Basic understanding of HTML",
-      "Basic understanding of CSS",
-      "Familiarity with JavaScript",
-      "Ability to use text editors and IDEs",
+      "Basic understanding of HTML and CSS",
+      "Familiarity with JavaScript programming language",
+      "Knowledge of web design principles and user experience",
+      "Access to a computer with internet connectivity",
       "Motivation to learn and explore web development"
     ],
     "objectives": [
-      "Understand the basics of web development",
-      "Learn HTML and CSS for building static web pages",
-      "Explore JavaScript for dynamic web content",
-      "Learn how to use frameworks and libraries for web development",
-      "Gain hands-on experience by building a web project"
+      "Understand the basics of HTML",
+      "Learn how to style web pages using CSS",
+      "Gain knowledge of JavaScript and its use in web development",
+      "Explore responsive design and its importance in web development",
+      "Acquire skills in building interactive web applications"
     ]
   },
   {
     "courseId": "64bdb4536e784880349b5c14",
     "requirements": [
-      "Basic understanding of web development principles",
-      "Familiarity with basic HTML tags and syntax",
-      "Knowledge of CSS is recommended",
-      "Access to a computer with internet connection",
-      "Willingness to learn and experiment with HTML coding"
+      "Basic understanding of web development concepts",
+      "Familiarity with CSS",
+      "Ability to write and understand HTML tags",
+      "Knowledge of basic text formatting (headings, paragraphs, lists)",
+      "Experience with using text editors or integrated development environments (IDEs)"
     ],
     "objectives": [
-      "Understand the basics of HTML markup language",
-      "Learn how to create a web page using HTML elements",
-      "Explore different HTML tags and their functions",
-      "Master the structure and organization of an HTML document",
-      "Apply CSS styles to enhance the appearance of HTML content"
+      "Understand the basics of HTML syntax",
+      "Learn how to create different HTML elements",
+      "Understand the concept of HTML attributes and their usage",
+      "Learn how to structure a web page using HTML",
+      "Understand the importance of HTML in web development"
     ]
   },
   {
     "courseId": "64bdb4536e784880349b5c1b",
     "requirements": [
-      "Good understanding of HTML",
-      "Basic knowledge of CSS",
-      "Familiarity with CSS Box Model",
-      "Understanding of CSS Selectors",
-      "Experience with responsive web design"
+      "Experience with HTML and CSS",
+      "Basic understanding of web design principles",
+      "Familiarity with CSS selectors and properties",
+      "Knowledge of responsive web design techniques",
+      "Ability to work with CSS frameworks, such as Bootstrap"
     ],
     "objectives": [
       "Understand the fundamentals of CSS",
-      "Learn advanced CSS styling techniques",
-      "Master the use of CSS selectors",
-      "Explore responsive design with CSS",
-      "Enhance web pages with CSS animations and transitions"
+      "Learn advanced CSS techniques",
+      "Apply CSS styles to HTML elements",
+      "Create responsive web designs using CSS",
+      "Optimize CSS for improved website performance"
     ]
   },
   {
     "courseId": "64bdb4536e784880349b5c22",
     "requirements": [
       "Basic understanding of HTML and CSS",
-      "Familiarity with programming concepts",
-      "Access to a computer with a code editor installed",
-      "Ability to write and execute basic code snippets",
-      "Motivation to learn and practice programming"
+      "Basic programming concepts",
+      "Access to a computer and internet connection",
+      "Familiarity with a text editor",
+      "Motivation to learn and practice coding"
     ],
     "objectives": [
-      "Understand the basic syntax and features of JavaScript",
+      "Understand the basic concepts of JavaScript",
       "Learn how to manipulate variables and data types in JavaScript",
-      "Become proficient in using functions and control flow in JavaScript",
-      "Master the concepts of arrays and objects in JavaScript",
-      "Apply JavaScript fundamentals to build interactive web applications"
+      "Master the control flow statements and loops in JavaScript",
+      "Become proficient in using functions and objects in JavaScript",
+      "Explore advanced JavaScript topics such as closures and prototypes"
     ]
   }
 ]
