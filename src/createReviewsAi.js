@@ -144,11 +144,11 @@ const createReviewsAndSave = async () => {
   await mongoose.connect(process.env.MONGO_URI);
   console.log("Connected to MongoDB");
 
-  let numberOfCourses = 3;
+  let numberOfCourses = await Course.count();
 
   if (!fs.existsSync("course_reviews.json")) {
-    for (let i = 0; i < numberOfCourses; i += 2) {
-      await createAiReview(i, 2);
+    for (let i = 0; i < numberOfCourses; i += 500) {
+      await createAiReview(i, 500);
     }
   }
 
