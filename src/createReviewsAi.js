@@ -77,7 +77,7 @@ const createAiReview = async (startingIndex, elementsInProcess) => {
 const createAiReviews = async (data) => {
   const students = await User.find({ role: "student" });
   console.log("deleting previous reviews");
-  await Review.deleteMany({});
+  // await Review.deleteMany({});
   for (let review of data) {
     const teacher = await User.findById(review.userId);
 
@@ -144,19 +144,19 @@ const createReviewsAndSave = async () => {
   await mongoose.connect(process.env.MONGO_URI);
   console.log("Connected to MongoDB");
 
-  let numberOfCourses = await Course.count();
+  let numberOfCourses = 500;
 
   if (!fs.existsSync("course_reviews.json")) {
-    for (let i = 0; i < numberOfCourses; i += 500) {
-      await createAiReview(i, 500);
+    for (let i = 0; i < numberOfCourses; i += 220) {
+      await createAiReview(i, 10);
     }
   }
 
   let data = JSON.parse(fs.readFileSync("course_reviews.json"));
   await createAiReviews(data);
   console.log("created reviews successfully");
-  await createObjectivesAndRequirements();
-  console.log("created objectives and requirements successfully");
+  // await createObjectivesAndRequirements();
+  // console.log("created objectives and requirements successfully");
 };
 
 createReviewsAndSave();

@@ -2,28 +2,33 @@ import mongoose from "mongoose";
 
 const { Schema, model } = mongoose;
 
-
 const salesSchema = Schema(
   {
+    name: { type: String, required: true },
+    surname: { type: String, required: true },
+    profilePicture: { type: String, required: true },
+    userId: { type: String, required: true },
+    courseId: { type: String, required: true },
+    paymentId: { type: String, required: true },
     teacherId: { type: String, required: true },
-    studentId: { type: String, required: true },
-    courseId: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
-    saleDate: { type: Date, required: true },
-    price: { type: Number, required: true, default: 0 },
-    studentsPicture: { type: String, required: true },
-
-  }
+    price: { type: Number, required: true },
+    isNew: { type: Boolean, required: false, default: false },
+  },
+  { timestamps: true }
 );
 
 salesSchema.methods.toJSON = function () {
   return {
     id: this._id,
-    teacherId: this.teacherId,
-    studentId: this.studentId,
+    name: this.name,
+    surname: this.surname,
+    userId: this.userId,
+    profilePicture: this.profilePicture,
     courseId: this.courseId,
-    saleDate: this.saleDate,
+    paymentId: this.paymentId,
     price: this.price,
-    studentsPicture: this.studentsPicture,
+    createdAt: this.createdAt,
+    isNew: this.isNew,
   };
 };
 
