@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const roleSchema = mongoose.Schema({
   name: {
     type: String,
@@ -22,4 +22,4 @@ roleSchema.methods.toJSON = function () {
 
 const Role = mongoose.model("roles", roleSchema);
 
-module.exports = Role;
+export default Role;
