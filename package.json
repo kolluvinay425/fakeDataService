@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2"
+    "@faker-js/faker": "^8.2.0"
   },
   "dependencies": {
     "@google-cloud/storage": "^6.11.0",
@@ -25,6 +25,7 @@
     "ffprobe-static": "^3.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "moment": "^2.29.4",
+    "mongodb": "^6.2.0",
     "mongoose": "^7.3.1",
     "openai": "^3.3.0"
   }
