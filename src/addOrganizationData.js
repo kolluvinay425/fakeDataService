@@ -30,7 +30,7 @@ async function createOrganizationData(filePath) {
 
   mongoConnection.then(async () => {
     //Create courseType
-    const courseType = await CourseType({ language: "Englinsh" });
+    const courseType = await CourseType({ language: "English" });
 
     //Get all organizations
     const organizations = await Organization.find();
