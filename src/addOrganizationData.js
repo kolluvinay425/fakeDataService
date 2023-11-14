@@ -13,6 +13,8 @@ import SpaceCourse from "./models/spaceCourses/index.js";
 import OrganizationSpacesAccountRole from "./models/organizationSpaceAccountRoles/index.js";
 import UserCourseRole from "./models/userCourseRole/index.js";
 
+import mock from "./mock.js";
+
 /**
  * Get all organizations and add 2 distinct admin user roles, 30 organization members, 5 spaces to each organizatoins
  * 6 courses, 5 distinct coordinator roles for each space, a teacher for each course and one teacher for each course and the rest of the members should be attendees
@@ -25,132 +27,142 @@ async function createOrganizationData(filePath) {
   const mongoConnection = mongoose.connect(process.env.MONGO_URI);
   mongoose.createConnection(process.env.MONGO_URI).asPromise();
 
-  const memberData = {
-    organizationId: "",
-    nameSurname: `${faker.person.firstName()} ${faker.person.lastName()}`,
-    email: faker.internet.email(),
-    accountId: new mongoose.Types.ObjectId().toString(),
-    role: "",
-    invitationStatus: "accepted",
-  };
-
   mongoConnection.then(async () => {
-    //Create a CourseType
+    //Create courseType
     const courseType = await CourseType({ language: "Englinsh" });
+
     //Get all organizations
     const organizations = await Organization.find();
-    const mockData = [];
-    const organizationMembers = [];
-    const organizationSpaces = [];
+    console.log(`=> Got ${organizations.length} organizations from the DB \n`);
+
+    const result = [];
     for (const organization of organizations) {
+      console.log(`Processing Organization ${organization.name}\n`);
+
       const orgData = {
         organization: organization,
-        organizationMembers: [],
-        spaces: {
-          coordinators: [],
-          courses: { courses: [], teachers: [], attendants: [] },
-        },
+        members: [],
+        spaces: [],
+        courses: [],
+        coordinators: [],
+        teachers: [],
+        attendants: [],
       };
-      //Prepare 2 users with Admin role
-      for (let j = 0; j <= 1; j++) {
-        const memberData = {
+
+      //Create 5 spaces for each organization
+      for (const space of mock.spaces) {
+        const spaceData = {
           organizationId: organization.id,
-          nameSurname: `${faker.person.firstName()} ${faker.person.lastName()}`,
-          email: faker.internet.email(),
-          accountId: new mongoose.Types.ObjectId().toString(),
-          role: "Admin",
-          invitationStatus: "accepted",
+          name: space.name,
         };
-        organizationMembers.push(memberData);
-        orgData.organizationMembers.push(memberData);
-      }
-      //Prepare 30 users with `Member` role
-      for (let i = 0; i <= 29; i++) {
-        const memberData = {
-          organizationId: organization.id,
-          nameSurname: `${faker.person.firstName()} ${faker.person.lastName()}`,
-          email: faker.internet.email(),
-          accountId: new mongoose.Types.ObjectId().toString(),
-          role: "Member",
-          invitationStatus: "accepted",
-        };
-        organizationMembers.push(memberData);
-        orgData.organizationMembers.push(memberData);
-      }
-      //Prepare 5 organization spaces for this organization
-      const orgSpace = [];
-      [
-        "Computer Science",
-        "Software Engineering",
-        "Graphic Design",
-        "Digital Marketing",
-        "Social Media Management",
-      ].map((space) => {
-        const spaceData = { organizationId: organization.id, name: space };
-        organizationSpaces.push(spaceData);
-        orgSpace.push(spaceData);
-      });
-      //Create the spaces
-      const spaces = await OrganizationSpace.insertMany(orgSpace);
-      for (const space of spaces) {
-        //Prepare 6 course for 1 space
-        const courses = [];
-        for (let n = 0; n <= 5; n++) {
+
+        const spaceResult = await OrganizationSpace.create(spaceData);
+        orgData.spaces.push(spaceResult);
+
+        //Create 6 courses for this space
+        for (const course of space.courses) {
           const courseData = {
             organizationId: organization.id,
-            spaceId: space._id.toString(),
-            name: `Course ${n + 1}`,
+            spaceId: spaceResult._id.toString(),
+            name: course,
             typeId: courseType._id.toString(),
           };
-          courses.push(courseData);
-          orgData.spaces.courses.courses.push(courseData);
-        }
-        //Prepare 5 users for each space
-        const coordinators = [];
-        for (let z = 0; z <= 4; z++) {
-          const coordinatorData = {
-            spaceId: space._id.toString(),
-            accountId: new mongoose.Types.ObjectId().toString(),
-            role: "coordinator",
-          };
-          coordinators.push(coordinatorData);
-          orgData.spaces.coordinators.push(coordinatorData);
-        }
-        //Create the 6 courses for this space and Create the 5 coordinators for this space
-        const courseList = await SpaceCourse.insertMany(courses);
-        const spaceUserList = await OrganizationSpacesAccountRole.insertMany(
-          coordinators
-        );
-        for (const course of courseList) {
-          const teacher = {
-            courseId: course._id.toString(),
-            accountId: new mongoose.Types.ObjectId().toString(),
-            role: "teacher",
-          };
-          //Create 1 teacher user for this course
-          await UserCourseRole.insertMany(teacher);
-          //Create 4 attendant users for this course
-          const attendants = [];
-          for (let a; a < 3; a++) {
-            const attendant = {
-              courseId: course._id.toString(),
-              accountId: new mongoose.Types.ObjectId().toString(),
-              role: "attendant",
-            };
-            attendants.push(attendant);
-            orgData.spaces.courses.attendants.push(attendant);
-          }
-          await UserCourseRole.insertMany(attendants);
+
+          const courseResult = await SpaceCourse.create(courseData);
+          orgData.courses.push(courseResult);
         }
       }
-      //Create the orgnaization users
-      await OrganizationAccountRole.insertMany(organizationMembers);
-      orgData.organizationMembers.push(organizationMembers);
-      mockData.push(orgData);
+
+      console.log(
+        `=> Created ${orgData.spaces.length} spaces for each organization`
+      );
+      console.log(
+        `=> Created ${orgData.courses.length} courses for ${orgData.spaces.length} space`
+      );
+
+      //Create 30 members for this organization
+      for (let i = 0; i <= 29; i++) {
+        const userId = new mongoose.Types.ObjectId().toString();
+
+        const memberData = {
+          organizationId: organization.id,
+          nameSurname: `${faker.person.firstName()} ${faker.person.lastName()}`,
+          email: faker.internet.email(),
+          accountId: userId,
+          role: i == 0 ? "Admin" : "Member",
+          invitationStatus: "accepted",
+        };
+
+        const memberResult = await OrganizationAccountRole.create(memberData);
+        orgData.members.push(memberResult);
+
+        //Make the first 5 members coordinators for all spaces
+        if (i <= 4) {
+          for (const space of orgData.spaces) {
+            const coordinatorData = {
+              spaceId: space._id.toString(),
+              accountId: userId,
+              role: "coordinator",
+            };
+
+            const coordinatorResult =
+              await OrganizationSpacesAccountRole.create(coordinatorData);
+            orgData.coordinators.push(coordinatorResult);
+          }
+        }
+
+        //Make the sixth member a teacher for all courses
+        if (i === 5) {
+          for (const course of orgData.courses) {
+            const teacherData = {
+              courseId: course._id.toString(),
+              accountId: userId,
+              role: "teacher",
+            };
+
+            const teacherResult = await UserCourseRole.create(teacherData);
+            orgData.teachers.push(teacherResult);
+          }
+        }
+
+        //Make the rest 24 members attendants for all courses
+        if (i > 5) {
+          for (const course of orgData.courses) {
+            const attendantData = {
+              courseId: course._id.toString(),
+              accountId: userId,
+              role: "attendant",
+            };
+
+            const attendantResult = await UserCourseRole.create(attendantData);
+            orgData.attendants.push(attendantResult);
+          }
+        }
+      }
+
+      console.log(
+        `=> Created ${orgData.members.length} members for each organization`
+      );
+      console.log(
+        `=> Created ${orgData.coordinators.length} coordinators for ${orgData.spaces.length} spaces`
+      );
+
+      console.log(
+        `=> Created ${orgData.teachers.length} teachers for ${orgData.courses.length} courses`
+      );
+
+      console.log(
+        `=> Created ${orgData.attendants.length} attendants for ${orgData.courses.length} courses\n`
+      );
+
+      result.push(orgData);
     }
+
     //Write the Data to file
-    const jsonData = JSON.stringify(mockData, null, 2);
+    const jsonData = JSON.stringify(result, null, 2);
     await fsPromises.writeFile(filePath, jsonData);
+
+    console.log("=> Creating fake data completed");
     process.exit(0);
   });
 }
