@@ -54,7 +54,7 @@ async function createOrganizationData(filePath) {
     //Create fake data
     const result = [];
     for (const organization of organizations) {
-      console.log(`=> Processing Organization ${organization.name}\n`);
+      console.log(`=> Processing Organization: ${organization.name}\n`);
       const orgData = {
         organization: organization,
         members: [],
