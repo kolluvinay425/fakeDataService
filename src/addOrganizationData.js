@@ -36,16 +36,25 @@ async function createOrganizationData(filePath) {
     const organizations = await Organization.find();
     console.log(`=> Got ${organizations.length} organizations from the DB \n`);
 
+    if (organizations.length === 0) {
+      throw new Error(
+        "You should have at least one organization in your database"
+      );
+    }
+
     //Get all the users from the db
     const users = await User.find();
     if (users.length < 30) {
       throw new Error("You should have at least 30 users in your database");
     }
 
+    await deleteExistingData(organizations);
+
+    console.log("Data creation started...\n");
+    //Create fake data
     const result = [];
     for (const organization of organizations) {
       console.log(`=> Processing Organization ${organization.name}\n`);
-
       const orgData = {
         organization: organization,
         members: [],
@@ -172,6 +181,65 @@ async function createOrganizationData(filePath) {
     console.log("=> Creating fake data completed");
     process.exit(0);
   });
+}
+
+async function deleteExistingData(organizations) {
+  //Prepare existing organization IDs
+  const organizationIds = organizations.map((organization) =>
+    organization._id.toString()
+  );
+
+  //Get existing spaces
+  const organizationSpaces = await OrganizationSpace.find({
+    organizationId: { $in: organizationIds },
+  });
+  const spaceIds = organizationSpaces.map((space) => space._id.toString());
+
+  //Get existing space roles
+  const spaceRoles = await OrganizationSpacesAccountRole.find({
+    spaceId: { $in: spaceIds },
+  });
+  const spaceRoleIds = spaceRoles.map((role) => role._id.toString());
+
+  //Get existing courses
+  const spaceCourses = await SpaceCourse.find({ spaceId: { $in: spaceIds } });
+  const spaceCourseIds = spaceCourses.map((course) => course._id.toString());
+
+  //Get existing course users (roles)
+  const courseRoles = await UserCourseRole.find({
+    courseId: { $in: spaceCourseIds },
+  });
+  const courseRoleIds = courseRoles.map((role) => role._id.toString());
+
+  //Delete existing organizationMembers, courses, spaces, spaceRoles, and courseRoles
+  const deletedMember = await OrganizationAccountRole.deleteMany({
+    organizationId: { $in: organizationIds },
+    role: { $in: ["Member", "Admin"] },
+  });
+
+  const deletedSpace = await OrganizationSpace.deleteMany({
+    _id: { $in: spaceIds },
+  });
+
+  const deletedCourse = await SpaceCourse.deleteMany({
+    _id: { $in: spaceCourseIds },
+  });
+
+  const deletedSpaceRole = await OrganizationSpacesAccountRole.deleteMany({
+    _id: { $in: spaceRoleIds },
+  });
+
+  const deletedCourseRole = await UserCourseRole.deleteMany({
+    _id: { $in: courseRoleIds },
+  });
+
+  console.log("=> Start cleaning up database...");
+  console.log(`=> Deleted ${deletedMember.deletedCount} organization members`);
+  console.log(`=> Deleted ${deletedSpace.deletedCount} organization spaces`);
+  console.log(`=> Deleted ${deletedCourse.deletedCount} courses`);
+  console.log(`=> Deleted ${deletedSpaceRole.deletedCount} space roles`);
+  console.log(`=> Deleted ${deletedCourseRole.deletedCount} course roles`);
+  console.log(`=> Finished deletion\n`);
 }
 
 const filePath = path.join(process.cwd(), "/fakeData/organizationData.json");
