@@ -12,6 +12,7 @@ import CourseType from "./models/courseType/index.js";
 import SpaceCourse from "./models/spaceCourses/index.js";
 import OrganizationSpacesAccountRole from "./models/organizationSpaceAccountRoles/index.js";
 import UserCourseRole from "./models/userCourseRole/index.js";
+import User from "./models/users/index.js";
 
 import mock from "./mock.js";
 
@@ -35,9 +36,15 @@ async function createOrganizationData(filePath) {
     const organizations = await Organization.find();
     console.log(`=> Got ${organizations.length} organizations from the DB \n`);
 
+    //Get all the users from the db
+    const users = await User.find();
+    if (users.length < 30) {
+      throw new Error("You should have at least 30 users in your database");
+    }
+
     const result = [];
     for (const organization of organizations) {
-      console.log(`Processing Organization ${organization.name}\n`);
+      console.log(`=> Processing Organization ${organization.name}\n`);
 
       const orgData = {
         organization: organization,
@@ -82,7 +89,7 @@ async function createOrganizationData(filePath) {
 
       //Create 30 members for this organization
       for (let i = 0; i <= 29; i++) {
-        const userId = new mongoose.Types.ObjectId().toString();
+        const userId = users[i];
 
         const memberData = {
           organizationId: organization.id,
