@@ -54,7 +54,11 @@ async function createOrganizationData(filePath) {
     //Create fake data
     const result = [];
     for (const organization of organizations) {
-      console.log(`=> Processing Organization: ${organization.name}\n`);
+      console.log(
+        `=> Processing Organization: Name: ${
+          organization.name
+        } => Id: ${organization._id.toString()}\n`
+      );
       const orgData = {
         organization: organization,
         members: [],
@@ -111,15 +115,14 @@ async function createOrganizationData(filePath) {
             "https://storage.googleapis.com/testing_uploads/1698324926207-Elec.jpeg",
         };
 
-        const memberResult = await OrganizationAccountRole.create(memberData);
-        orgData.members.push(memberResult);
-
         //Create a user with Admin role (this admin user can't be coordinator, teacher or attendant)
         if (i === 0) {
           memberData.role = "Admin";
-          memberData.nameSurname = `${faker.person.firstName()} ${faker.person.lastName()}`;
-          await OrganizationAccountRole.create(memberData);
         }
+
+        //Create the memeber
+        const memberResult = await OrganizationAccountRole.create(memberData);
+        orgData.members.push(memberResult);
 
         //Make the first 5 members coordinators for all spaces
         if (i >= 1 && i <= 5) {
