@@ -4,6 +4,11 @@ const { Schema } = mongoose;
 
 const organizationSpacesAccountRoleSchema = new Schema(
   {
+    organizationRoleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "OrganizationAccountRoles",
+      required: true,
+    },
     spaceId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "OrganizationSpace",

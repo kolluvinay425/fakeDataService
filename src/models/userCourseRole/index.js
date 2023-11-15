@@ -4,6 +4,11 @@ const { Schema } = mongoose;
 
 const userCourseRoleSchema = new Schema(
   {
+    organizationRoleId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "OrganizationAccountRoles",
+      required: true,
+    },
     courseId: { type: mongoose.Schema.Types.ObjectId, required: true },
     accountId: { type: mongoose.Schema.Types.ObjectId, required: true },
     role: {
