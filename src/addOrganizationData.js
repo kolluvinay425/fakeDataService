@@ -105,17 +105,25 @@ async function createOrganizationData(filePath) {
           nameSurname: `${faker.person.firstName()} ${faker.person.lastName()}`,
           email: faker.internet.email(),
           accountId: userId,
-          role: i == 0 ? "Admin" : "Member",
+          role: "Member",
           invitationStatus: "accepted",
         };
 
         const memberResult = await OrganizationAccountRole.create(memberData);
         orgData.members.push(memberResult);
 
+        //Create a user with Admin role (this admin user can't be coordinator, teacher or attendant)
+        if (i === 0) {
+          memberData.role = "Admin";
+          memberData.nameSurname = `${faker.person.firstName()} ${faker.person.lastName()}`;
+          await OrganizationAccountRole.create(memberData);
+        }
+
         //Make the first 5 members coordinators for all spaces
-        if (i <= 4) {
+        if (i >= 1 && i <= 5) {
           for (const space of orgData.spaces) {
             const coordinatorData = {
+              organizationRoleId: memberResult._id,
               spaceId: space._id.toString(),
               accountId: userId,
               role: "coordinator",
@@ -127,10 +135,11 @@ async function createOrganizationData(filePath) {
           }
         }
 
-        //Make the sixth member a teacher for all courses
-        if (i === 5) {
+        //Make the seventh member a teacher for all courses
+        if (i === 6) {
           for (const course of orgData.courses) {
             const teacherData = {
+              organizationRoleId: memberResult._id,
               courseId: course._id.toString(),
               accountId: userId,
               role: "teacher",
@@ -142,9 +151,10 @@ async function createOrganizationData(filePath) {
         }
 
         //Make the rest 24 members attendants for all courses
-        if (i > 5) {
+        if (i > 6) {
           for (const course of orgData.courses) {
             const attendantData = {
+              organizationRoleId: memberResult._id,
               courseId: course._id.toString(),
               accountId: userId,
               role: "attendant",
