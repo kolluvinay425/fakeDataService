@@ -107,6 +107,8 @@ async function createOrganizationData(filePath) {
           accountId: userId,
           role: "Member",
           invitationStatus: "accepted",
+          profilePicture:
+            "https://storage.googleapis.com/testing_uploads/1698324926207-Elec.jpeg",
         };
 
         const memberResult = await OrganizationAccountRole.create(memberData);
