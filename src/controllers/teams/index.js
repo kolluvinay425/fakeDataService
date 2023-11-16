@@ -1,22 +1,21 @@
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 
-import SpaceCourse from "../models/spaceCourses/index.js";
-import OrganizationSpace from "../models/organizationSpace/index.js";
-import OrganizationTeam from "../models/organizationTeams/index.js";
-import OrganizationTeamMember from "../models/organizationTeamMembers/index.js";
-import Organization from "../models/organizations/index.js";
-import TeamSpaceRole from "../models/teamSpaceRole/index.js";
-import TeamCourseRole from "../models/teamCourseRole/index.js";
-import User from "../models/users/index.js";
+import SpaceCourse from "../../models/spaceCourses/index.js";
+import OrganizationSpace from "../../models/organizationSpace/index.js";
+import OrganizationTeam from "../../models/organizationTeams/index.js";
+import OrganizationTeamMember from "../../models/organizationTeamMembers/index.js";
+import Organization from "../../models/organizations/index.js";
+import TeamSpaceRole from "../../models/teamSpaceRole/index.js";
+import TeamCourseRole from "../../models/teamCourseRole/index.js";
+import User from "../../models/users/index.js";
 
-dotenv.config();
+import config from "../../config/index.js";
 
-async function generateTeamData() {
+async function generateTeamData(req, res) {
   try {
     //1. Create connection
-    const mongoConnection = mongoose.connect(process.env.MONGO_URI);
-    mongoose.createConnection(process.env.MONGO_URI).asPromise();
+    const mongoConnection = mongoose.connect(config.mongoUri);
+    mongoose.createConnection(config.mongoUri).asPromise();
 
     //2. Get all organizations, courses, spaces, teams and team members from the DB
     const organizations = await Organization.find();
@@ -169,9 +168,16 @@ async function generateTeamData() {
         }
       }
     }
+
+    console.log("=> Completed generating teams and team members");
+    res
+      .status(201)
+      .json({ message: "Generated teams, team members, and roles" });
+    return;
   } catch (error) {
     console.log(error);
+    res.status(500).json({ errorCode: "SERVER_ERROR" });
   }
 }
 
-generateTeamData();
+export { generateTeamData };
