@@ -102,17 +102,17 @@ async function createOrganizationData(filePath) {
 
       //Create 30 members for this organization
       for (let i = 0; i <= 29; i++) {
-        const userId = users[i];
+        const userId = users[i]._id.toString();
+        const { name, surname, profilePicture } = users[i];
 
         const memberData = {
           organizationId: organization.id,
-          nameSurname: `${faker.person.firstName()} ${faker.person.lastName()}`,
+          nameSurname: `${name} ${surname}`,
           email: faker.internet.email(),
           accountId: userId,
           role: "Member",
           invitationStatus: "accepted",
-          profilePicture:
-            "https://storage.googleapis.com/testing_uploads/1698324926207-Elec.jpeg",
+          profilePicture,
         };
 
         //Create a user with Admin role (this admin user can't be coordinator, teacher or attendant)
