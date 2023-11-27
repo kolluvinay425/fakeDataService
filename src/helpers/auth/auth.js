@@ -1,12 +1,13 @@
 import { compose } from "compose-middleware";
 import * as jwtWeb from "express-jwt";
+import jwt from "jsonwebtoken";
+
+import config from "../../config/index.js";
 
 const { expressjwt } = jwtWeb;
 
-const secret = process.env.JWT_SECRET;
-
 const jwtMiddleware = expressjwt({
-  secret: secret,
+  secret: config.jwtSecret,
   algorithms: ["HS256"],
   userProperty: "user",
   getToken: (req) => req.cookies.accessToken,
@@ -23,4 +24,18 @@ const authMiddleware = compose(jwtMiddleware, (err, req, res, next) => {
   next(err);
 });
 
-export { authMiddleware };
+function generateToken(userInfo, expTime, secret, subject) {
+  const payload = {
+    userInfo: userInfo,
+    subject,
+  };
+
+  const options = {
+    expiresIn: expTime,
+  };
+
+  const token = jwt.sign(payload, secret, options);
+  return token;
+}
+
+export { authMiddleware, generateToken };
